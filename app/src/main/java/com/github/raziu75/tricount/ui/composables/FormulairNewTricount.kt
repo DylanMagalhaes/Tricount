@@ -1,9 +1,6 @@
 package com.github.raziu75.tricount.ui.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -14,10 +11,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.raziu75.tricount.vm.GroupViewModel
+import com.github.raziu75.tricount.vm.UserViewModel
 
 @Composable
-fun FormulairNewTricount(vm: GroupViewModel = viewModel()) {
-    val groupState by vm.uiState.collectAsState()
+fun FormulairNewTricount(
+    vmGroup: GroupViewModel = viewModel(),
+    vmUser: UserViewModel = viewModel()
+) {
+    val groupState by vmGroup.uiState.collectAsState()
+    val userState by vmUser.uiState.collectAsState()
 
     Column(
         modifier = Modifier
@@ -27,14 +29,14 @@ fun FormulairNewTricount(vm: GroupViewModel = viewModel()) {
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = groupState.title,
-            onValueChange = {newValue -> vm.onTitleInputChange(newValue)},
+            onValueChange = { newValue -> vmGroup.onTitleInputChange(newValue) },
             label = { Text(text = "Titre") },
         )
         Spacer(modifier = Modifier.height(32.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = groupState.description,
-            onValueChange = {newValue -> vm.onDescriptionInputChange(newValue)},
+            onValueChange = { newValue -> vmGroup.onDescriptionInputChange(newValue) },
             label = { Text(text = "Description") }
         )
 
@@ -48,7 +50,8 @@ fun FormulairNewTricount(vm: GroupViewModel = viewModel()) {
         ) {
             Text(
                 modifier = Modifier.padding(16.dp),
-                text = "Participants: 0")
+                text = "Participants: ${groupState.numberUser}"
+            )
         }
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -59,18 +62,15 @@ fun FormulairNewTricount(vm: GroupViewModel = viewModel()) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = userState.name,
+                onValueChange = { newValue -> vmUser.onNameInputChange(newValue) },
                 label = { Text(text = "Name") },
 
-            )
-            Button(onClick = { /*TODO*/ }) {
+                )
+            Button(onClick = { vmGroup.onAddUserClick(userState.name) }) {
                 Text(text = "Add")
             }
         }
-        
-        LazyColumn(){
-
-        }
+        ListUsersView(vmGroup = vmGroup )
     }
 }
