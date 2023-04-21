@@ -1,6 +1,7 @@
 package com.github.raziu75.tricount.vm
 
 import androidx.lifecycle.ViewModel
+import com.github.raziu75.tricount.model.Group
 import com.github.raziu75.tricount.model.User
 import com.github.raziu75.tricount.ui.uiState.GroupState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,6 +29,19 @@ class GroupViewModel : ViewModel() {
             groupUiState.value.numberUser += 1
         }
     }
+
+    fun onSaveButtonClick() {
+        val newGroup = Group(
+            title = groupUiState.value.title,
+            description = groupUiState.value.description,
+            numberUser = groupUiState.value.numberUser
+        )
+        groupUiState.update {
+            it.copy(listGroup = it.listGroup + newGroup)
+        }
+        println(groupUiState.value.listGroup)
+    }
+
 
     fun onDeleteUserClick(user: User) {
         groupUiState.update { currentState ->

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.raziu75.tricount.ui.composables.FormulairNewTricount
+import com.github.raziu75.tricount.ui.composables.Home
 import com.github.raziu75.tricount.ui.theme.TricountTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    FormulairNewTricount()
+                    Home()
                 }
             }
         }

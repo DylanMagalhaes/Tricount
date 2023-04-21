@@ -10,13 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.github.raziu75.tricount.vm.GroupViewModel
 import com.github.raziu75.tricount.vm.UserViewModel
 
 @Composable
 fun FormulairNewTricount(
-    vmGroup: GroupViewModel = viewModel(),
-    vmUser: UserViewModel = viewModel()
+    vmGroup: GroupViewModel,
+    vmUser: UserViewModel,
+    navController: NavController
 ) {
     val groupState by vmGroup.uiState.collectAsState()
     val userState by vmUser.uiState.collectAsState()
