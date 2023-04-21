@@ -39,7 +39,19 @@ class GroupViewModel : ViewModel() {
         groupUiState.update {
             it.copy(listGroup = it.listGroup + newGroup)
         }
+        println(groupUiState.value)
         println(groupUiState.value.listGroup)
+        println(groupUiState.value.description)
+        println(groupUiState.value.title)
+        println(groupUiState.value.numberUser)
+    }
+
+    fun onDeleteGroupClick(group: Group){
+        groupUiState.update { currentState ->
+            val updatedList = currentState.listGroup.toMutableList()
+            updatedList.remove(group)
+            currentState.copy(listGroup = updatedList)
+        }
     }
 
 

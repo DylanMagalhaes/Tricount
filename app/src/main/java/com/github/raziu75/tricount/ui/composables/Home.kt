@@ -25,7 +25,7 @@ fun Home(groupVm: GroupViewModel = viewModel(), userVm: UserViewModel = viewMode
                 up = { navController.navigateUp() },
                 screens = currentScreen,
                 canGoBack = navController.previousBackStackEntry != null,
-                onClick = { groupVm.onSaveButtonClick() }
+                onClick = { groupVm.onSaveButtonClick()  }
             )
         },
         content = { paddingValues ->

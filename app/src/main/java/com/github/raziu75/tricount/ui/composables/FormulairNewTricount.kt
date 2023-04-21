@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -26,15 +27,24 @@ fun FormulairNewTricount(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = "Nouveau Tricount",
+            style = MaterialTheme.typography.h4,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colors.primary,
+            modifier = Modifier.padding(bottom = 24.dp)
+        )
+
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = groupState.title,
             onValueChange = { newValue -> vmGroup.onTitleInputChange(newValue) },
             label = { Text(text = "Titre") },
         )
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = groupState.description,
@@ -42,21 +52,22 @@ fun FormulairNewTricount(
             label = { Text(text = "Description") }
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            color = Color.LightGray,
+            color = MaterialTheme.colors.primaryVariant,
             shape = MaterialTheme.shapes.medium,
             elevation = 4.dp
         ) {
             Text(
                 modifier = Modifier.padding(16.dp),
-                text = "Participants: ${groupState.numberUser}"
+                text = "Participants: ${groupState.numberUser}",
+                color = Color.White
             )
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -66,13 +77,15 @@ fun FormulairNewTricount(
             OutlinedTextField(
                 value = userState.name,
                 onValueChange = { newValue -> vmUser.onNameInputChange(newValue) },
-                label = { Text(text = "Name") },
-
-                )
+                label = { Text(text = "Nom") },
+                modifier = Modifier.weight(1f)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
             Button(onClick = { vmGroup.onAddUserClick(userState.name) }) {
-                Text(text = "Add")
+                Text(text = "Ajouter")
             }
         }
+        Spacer(modifier = Modifier.height(16.dp))
         ListUsersView(vmGroup = vmGroup)
     }
 }

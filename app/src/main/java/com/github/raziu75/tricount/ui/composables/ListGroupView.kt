@@ -1,10 +1,15 @@
 package com.github.raziu75.tricount.ui.composables
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -20,27 +25,24 @@ fun ListGroupView(vm: GroupViewModel, navController: NavController) {
     val groupState by vm.uiState.collectAsState()
     val groupList = groupState.listGroup
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()) {
         if (groupList.isEmpty()) {
-            Text(text = "Pas encore de group crée")
+            Text(text = "Pas encore de group crée", modifier = Modifier.align(Alignment.Center))
         } else {
-            LazyColumn(modifier = Modifier.weight(1f)) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(groupList) { group ->
-                    GroupView(group = group, onDelete = { })
+                    GroupView(group = group, onDelete = { vm.onDeleteGroupClick(group) })
                 }
             }
         }
 
-        Box(
+        FloatingActionButton(
+            onClick = { navController.navigate(Screens.NEW_TRICOUNT.name) },
             modifier = Modifier
+                .align(Alignment.BottomCenter)
                 .padding(16.dp)
-
-                .weight(1f),
-            contentAlignment = Alignment.BottomCenter
         ) {
-            Button(onClick = { navController.navigate(Screens.NEW_TRICOUNT.name) }) {
-                Text(text = "Ajouter un groupe")
-            }
+            Icon(Icons.Filled.Add, contentDescription = "Ajouter un groupe")
         }
     }
 }
