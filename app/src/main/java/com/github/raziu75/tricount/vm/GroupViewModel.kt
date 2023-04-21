@@ -7,26 +7,29 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-class GroupViewModel: ViewModel() {
+class GroupViewModel : ViewModel() {
 
     private val groupUiState = MutableStateFlow(GroupState())
     var uiState: StateFlow<GroupState> = groupUiState
 
 
-    fun onTitleInputChange(value: String){
+    fun onTitleInputChange(value: String) {
         groupUiState.update { it.copy(title = value) }
     }
-    fun onDescriptionInputChange(value: String){
+
+    fun onDescriptionInputChange(value: String) {
         groupUiState.update { it.copy(description = value) }
     }
 
-    fun onAddUserClick(name: String){
-         val newUser = User(name = name)
-        groupUiState.update { it.copy(listUser = it.listUser + newUser) }
-        groupUiState.value.numberUser += 1
+    fun onAddUserClick(name: String) {
+        val newUser = User(name = name)
+        if (name != "") {
+            groupUiState.update { it.copy(listUser = it.listUser + newUser) }
+            groupUiState.value.numberUser += 1
+        }
     }
 
-    fun onDeleteUserClick(user: User){
+    fun onDeleteUserClick(user: User) {
         groupUiState.update { currentState ->
             val updatedList = currentState.listUser.toMutableList()
             updatedList.remove(user)

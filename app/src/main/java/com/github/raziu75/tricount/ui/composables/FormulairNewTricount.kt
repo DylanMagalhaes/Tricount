@@ -71,6 +71,6 @@ fun FormulairNewTricount(
                 Text(text = "Add")
             }
         }
-        ListUsersView(vmGroup = vmGroup )
+        ListUsersView(vmGroup = vmGroup)
     }
 }
