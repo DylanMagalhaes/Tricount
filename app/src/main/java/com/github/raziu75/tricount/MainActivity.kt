@@ -10,8 +10,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.raziu75.tricount.ui.composables.FormulairNewTricount
 import com.github.raziu75.tricount.ui.composables.Home
+import com.github.raziu75.tricount.ui.composables.NewExpenseView
 import com.github.raziu75.tricount.ui.theme.TricountTheme
 
 class MainActivity : ComponentActivity() {

@@ -17,10 +17,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.github.raziu75.tricount.model.Group
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GroupView(
     group: Group,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onClick: (Group) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -29,7 +31,8 @@ fun GroupView(
             .height(100.dp),
         elevation = 8.dp,
         backgroundColor = MaterialTheme.colors.surface,
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.medium,
+        onClick = { onClick(group) }
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),

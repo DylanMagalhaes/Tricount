@@ -1,6 +1,8 @@
 package com.github.raziu75.tricount.vm
 
 import androidx.lifecycle.ViewModel
+import com.github.raziu75.tricount.model.Account
+import com.github.raziu75.tricount.model.Expense
 import com.github.raziu75.tricount.model.Group
 import com.github.raziu75.tricount.model.User
 import com.github.raziu75.tricount.ui.uiState.GroupState
@@ -23,7 +25,7 @@ class GroupViewModel : ViewModel() {
     }
 
     fun onAddUserClick(name: String) {
-        val newUser = User(name = name)
+        val newUser = User(name = name, account = Account(currentBalance = Expense(title = "", participants = listOf(), payerName = name, amount = 0.0)))
         if (name != "") {
             groupUiState.update { it.copy(listUser = it.listUser + newUser) }
             groupUiState.value.numberUser += 1
@@ -39,6 +41,7 @@ class GroupViewModel : ViewModel() {
         groupUiState.update {
             it.copy(listGroup = it.listGroup + newGroup)
         }
+
         println(groupUiState.value)
         println(groupUiState.value.listGroup)
         println(groupUiState.value.description)

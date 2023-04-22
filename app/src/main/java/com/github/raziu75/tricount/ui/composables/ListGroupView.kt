@@ -31,11 +31,17 @@ fun ListGroupView(vm: GroupViewModel, navController: NavController) {
         } else {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(groupList) { group ->
-                    GroupView(group = group, onDelete = { vm.onDeleteGroupClick(group) })
+                    GroupView(
+                        group = group,
+                        onDelete = { vm.onDeleteGroupClick(group) },
+                        onClick = {
+                            navController.navigate(
+                                Screens.MAIN_GROUP.name
+                            )
+                        })
                 }
             }
         }
-
         FloatingActionButton(
             onClick = { navController.navigate(Screens.NEW_TRICOUNT.name) },
             modifier = Modifier
