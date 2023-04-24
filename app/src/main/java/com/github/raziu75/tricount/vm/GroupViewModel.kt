@@ -25,7 +25,7 @@ class GroupViewModel : ViewModel() {
     }
 
     fun onAddUserClick(name: String) {
-        val newUser = User(name = name, account = Account(currentBalance = Expense(title = "", participants = listOf(), payerName = name, amount = 0.0)))
+        val newUser = User(name = name, account = Account(currentBalance = Expense(title = "", participants = listOf(), payerName = name, amount = "")))
         if (name != "") {
             groupUiState.update { it.copy(listUser = it.listUser + newUser) }
             groupUiState.value.numberUser += 1

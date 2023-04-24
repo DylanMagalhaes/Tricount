@@ -43,7 +43,9 @@ fun FormulairNewTricount(
             onValueChange = { newValue -> vmGroup.onTitleInputChange(newValue) },
             label = { Text(text = "Titre") },
         )
+
         Spacer(modifier = Modifier.height(16.dp))
+
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = groupState.description,
@@ -79,12 +81,19 @@ fun FormulairNewTricount(
                 label = { Text(text = "Nom") },
                 modifier = Modifier.weight(1f)
             )
+
             Spacer(modifier = Modifier.width(8.dp))
+
             Button(onClick = { vmGroup.onAddUserClick(userState.name) }) {
                 Text(text = "Ajouter")
             }
         }
+
         Spacer(modifier = Modifier.height(16.dp))
-        ListUsersView(vmGroup = vmGroup)
+
+        ListUsersView(
+            state = groupState,
+            onDeleteUserClick = { vmGroup.onDeleteUserClick(it) }
+        )
     }
 }

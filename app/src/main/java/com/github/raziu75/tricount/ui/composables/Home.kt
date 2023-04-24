@@ -11,11 +11,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.raziu75.tricount.model.Screens
+import com.github.raziu75.tricount.vm.ExpenseViewModel
 import com.github.raziu75.tricount.vm.GroupViewModel
 import com.github.raziu75.tricount.vm.UserViewModel
 
 @Composable
-fun Home(groupVm: GroupViewModel = viewModel(), userVm: UserViewModel = viewModel() ) {
+fun Home(groupVm: GroupViewModel = viewModel(), userVm: UserViewModel = viewModel(), expenseVm: ExpenseViewModel = viewModel() ) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = Screens.valueOf(backStackEntry?.destination?.route ?: Screens.HOME.name)
@@ -45,7 +46,7 @@ fun Home(groupVm: GroupViewModel = viewModel(), userVm: UserViewModel = viewMode
                     MainGroup(navController = navController, vmUser = userVm, vmGroup = groupVm)
                 }
                 composable(Screens.NEW_EXPENSE.name) {
-                    NewExpenseView(navController = navController, vmUser = userVm, vmGroup = groupVm)
+                    NewExpenseView(navController = navController, vmGroup = groupVm, vmExpense = expenseVm)
                 }
             }
         }
