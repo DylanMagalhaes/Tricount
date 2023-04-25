@@ -13,7 +13,6 @@ data class TripWithTransactions(
     @Relation(
         parentColumn = "trip_id",
         entityColumn = "transaction_id",
-        associateBy = Junction(TripTransactionsCrossRef::class)
     )
     val transactions: List<TransactionEntity>,
 )
