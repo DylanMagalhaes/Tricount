@@ -1,9 +1,9 @@
-package com.github.raziu75.tricount.data.dao
+package com.github.raziu75.tricount.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import com.github.raziu75.tricount.data.entity.relation.TransactionWithParticipants
+import com.github.raziu75.tricount.data.local.entity.relation.TransactionWithParticipants
 
 @Dao
 interface TransactionDao {

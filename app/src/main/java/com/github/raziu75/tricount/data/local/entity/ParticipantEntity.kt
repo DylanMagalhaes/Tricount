@@ -1,4 +1,4 @@
-package com.github.raziu75.tricount.data.entity
+package com.github.raziu75.tricount.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,13 +1,13 @@
-package com.github.raziu75.tricount.data
+package com.github.raziu75.tricount.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.github.raziu75.tricount.data.dao.TransactionDao
-import com.github.raziu75.tricount.data.entity.ParticipantEntity
-import com.github.raziu75.tricount.data.entity.TransactionEntity
-import com.github.raziu75.tricount.data.entity.TripEntity
+import com.github.raziu75.tricount.data.local.dao.TransactionDao
+import com.github.raziu75.tricount.data.local.entity.ParticipantEntity
+import com.github.raziu75.tricount.data.local.entity.TransactionEntity
+import com.github.raziu75.tricount.data.local.entity.TripEntity
 
 @Database(
     entities = [

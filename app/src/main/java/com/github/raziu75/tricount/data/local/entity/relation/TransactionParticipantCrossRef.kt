@@ -1,10 +1,10 @@
-package com.github.raziu75.tricount.data.entity.relation
+package com.github.raziu75.tricount.data.local.entity.relation
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import com.github.raziu75.tricount.data.entity.ParticipantEntity
-import com.github.raziu75.tricount.data.entity.TransactionEntity
+import com.github.raziu75.tricount.data.local.entity.ParticipantEntity
+import com.github.raziu75.tricount.data.local.entity.TransactionEntity
 
 @Entity(
     tableName = "transaction_participant",
