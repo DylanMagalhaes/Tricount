@@ -12,4 +12,7 @@ data class TransactionEntity(
 
     @ColumnInfo("amount_in_cents")
     val amountInCents: Int,
+
+    @ColumnInfo("payer_id")
+    val payerId: Long,
 )

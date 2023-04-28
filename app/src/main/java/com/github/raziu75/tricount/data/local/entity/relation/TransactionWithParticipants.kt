@@ -15,4 +15,10 @@ data class TransactionWithParticipants(
         associateBy = Junction(TransactionParticipantCrossRef::class)
     )
     val participants: List<ParticipantEntity>,
+
+    @Relation(
+        parentColumn = "payer_id",
+        entityColumn = "participant_id"
+    )
+    val payer: ParticipantEntity
 )
