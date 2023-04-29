@@ -22,7 +22,7 @@ import com.github.raziu75.tricount.data.local.entity.TransactionEntity
             childColumns = ["participant_id"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
 )
 data class TransactionParticipantCrossRef(
     @ColumnInfo("transaction_id") val transactionId: Long,

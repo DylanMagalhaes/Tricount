@@ -8,11 +8,13 @@ import com.github.raziu75.tricount.data.local.dao.TricountDao
 import com.github.raziu75.tricount.data.local.entity.ParticipantEntity
 import com.github.raziu75.tricount.data.local.entity.TransactionEntity
 import com.github.raziu75.tricount.data.local.entity.TripEntity
+import com.github.raziu75.tricount.data.local.entity.relation.TransactionParticipantCrossRef
 
 @Database(
     entities = [
         TransactionEntity::class,
         ParticipantEntity::class,
+        TransactionParticipantCrossRef::class,
         TripEntity::class,
     ],
     version = 1
