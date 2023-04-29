@@ -1,7 +1,7 @@
 package com.github.raziu75.tricount.domain.model
 
 data class Transaction(
-    val id: Long? = null,
+    val id: Long = 0,
     val amountInCents: Int,
     val title: String,
     val payer: Participant,

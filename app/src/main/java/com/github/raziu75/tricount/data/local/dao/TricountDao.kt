@@ -13,14 +13,14 @@ import com.github.raziu75.tricount.data.local.entity.relation.TransactionWithPar
 interface TricountDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun createTransaction(transaction: TransactionEntity)
+    suspend fun createTransaction(transaction: TransactionEntity): Long
 
     @Transaction
     @Query("SELECT * FROM `transaction` WHERE transaction_id = :transactionId")
     suspend fun getTransactionWithParticipants(transactionId: Long): TransactionWithParticipants?
 
     @Query("UPDATE `transaction` SET payer_id = :payerId WHERE transaction_id = :transactionId")
-    suspend fun updateTransactionPayer(transactionId: Long, payerId: String)
+    suspend fun updateTransactionPayer(transactionId: Long, payerId: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createParticipant(transaction: TransactionEntity)

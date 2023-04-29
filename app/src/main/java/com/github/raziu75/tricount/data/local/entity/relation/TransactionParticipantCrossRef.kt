@@ -26,5 +26,5 @@ import com.github.raziu75.tricount.data.local.entity.TransactionEntity
 )
 data class TransactionParticipantCrossRef(
     @ColumnInfo("transaction_id") val transactionId: Long,
-    @ColumnInfo("participant_id") val participantId: String,
+    @ColumnInfo("participant_id") val participantId: Long,
 )
