@@ -1,4 +1,4 @@
-package com.github.raziu75.tricount.data.entity
+package com.github.raziu75.tricount.data.local.entity
 
 import androidx.room.*
 
@@ -12,4 +12,7 @@ data class TransactionEntity(
 
     @ColumnInfo("amount_in_cents")
     val amountInCents: Int,
+
+    @ColumnInfo("payer_id")
+    val payerId: Long,
 )

@@ -1,10 +1,10 @@
-package com.github.raziu75.tricount.data.entity.relation
+package com.github.raziu75.tricount.data.local.entity.relation
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import com.github.raziu75.tricount.data.entity.ParticipantEntity
-import com.github.raziu75.tricount.data.entity.TransactionEntity
+import com.github.raziu75.tricount.data.local.entity.ParticipantEntity
+import com.github.raziu75.tricount.data.local.entity.TransactionEntity
 
 @Entity(
     tableName = "transaction_participant",
@@ -22,10 +22,9 @@ import com.github.raziu75.tricount.data.entity.TransactionEntity
             childColumns = ["participant_id"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
 )
 data class TransactionParticipantCrossRef(
     @ColumnInfo("transaction_id") val transactionId: Long,
-    @ColumnInfo("participant_id") val participantId: String,
-    @ColumnInfo("is_payer") val isPayer: Boolean,
+    @ColumnInfo("participant_id") val participantId: Long,
 )
