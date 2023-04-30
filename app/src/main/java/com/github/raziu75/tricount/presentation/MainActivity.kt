@@ -1,4 +1,4 @@
-package com.github.raziu75.tricount
+package com.github.raziu75.tricount.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
