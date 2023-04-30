@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import com.github.raziu75.tricount.data.local.entity.ParticipantEntity
 import com.github.raziu75.tricount.data.local.entity.TransactionEntity
 import com.github.raziu75.tricount.data.local.entity.relation.TransactionParticipantCrossRef
 import com.github.raziu75.tricount.data.local.entity.relation.TransactionWithParticipants
@@ -27,4 +28,8 @@ interface TricountDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createTransactionParticipantsCrossRef(refs: List<TransactionParticipantCrossRef>)
+
+    @Transaction
+    @Query("SELECT * FROM `participant`")
+    suspend fun getAllParticipants(): List<ParticipantEntity>
 }

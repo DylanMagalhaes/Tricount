@@ -6,6 +6,7 @@ import com.github.raziu75.tricount.data.local.entity.TransactionEntity
 import com.github.raziu75.tricount.data.local.entity.relation.TransactionParticipantCrossRef
 import com.github.raziu75.tricount.data.local.mapper.toDomain
 import com.github.raziu75.tricount.domain.model.Transaction
+import com.github.raziu75.tricount.domain.model.Transaction.Participant
 
 class TricountRepository(private val dao: TricountDao) {
 
@@ -50,4 +51,8 @@ class TricountRepository(private val dao: TricountDao) {
             participants = participants.map(ParticipantEntity::toDomain)
         )
     }
+
+    suspend fun getParticipants(): List<Participant> =
+        dao.getAllParticipants().map(ParticipantEntity::toDomain)
+
 }
