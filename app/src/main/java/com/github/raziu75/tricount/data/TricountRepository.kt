@@ -7,8 +7,9 @@ import com.github.raziu75.tricount.data.local.entity.relation.TransactionPartici
 import com.github.raziu75.tricount.data.local.mapper.toDomain
 import com.github.raziu75.tricount.domain.model.Transaction
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
+import javax.inject.Inject
 
-class TricountRepository(private val dao: TricountDao) {
+class TricountRepository @Inject constructor(private val dao: TricountDao) {
 
     suspend fun createTransaction(transaction: Transaction): Transaction {
         val transactionId = dao.createTransaction(

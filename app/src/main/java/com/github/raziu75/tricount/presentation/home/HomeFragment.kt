@@ -5,17 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnLifecycleDestroyed
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,16 +29,22 @@ class HomeFragment : Fragment() {
         ComposeView(requireContext()).apply {
             setViewCompositionStrategy(DisposeOnLifecycleDestroyed(viewLifecycleOwner))
             setContent {
-                val uiState by viewModel.uiState.collectAsState()
+                MaterialTheme(
+                    colorScheme = lightColorScheme()
+                ) {
+                    val uiState by viewModel.uiState.collectAsState()
 
-                HomeScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    state = uiState,
-                )
+                    HomeScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        state = uiState,
+                    )
+                }
             }
         }
 
     companion object {
+        const val TAG = "HomeFragment"
+
         fun newInstance(): Fragment {
             return HomeFragment()
         }

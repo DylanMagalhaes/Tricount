@@ -1,9 +1,13 @@
 package com.github.raziu75.tricount.presentation
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.github.raziu75.tricount.presentation.home.HomeFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : ComponentActivity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -11,6 +15,13 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun showHomeUi() {
-        TODO()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                android.R.id.content,
+                HomeFragment.newInstance(),
+                HomeFragment.TAG,
+            )
+            .commitNow()
     }
 }
