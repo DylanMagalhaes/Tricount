@@ -25,7 +25,7 @@ private fun CountCardPreview() {
     MaterialTheme {
         CountCard(
             title = "Participant",
-            count = 4,
+            count = null,
             icon = R.drawable.ic_person,
         )
     }
@@ -34,7 +34,7 @@ private fun CountCardPreview() {
 @Composable
 fun CountCard(
     title: String,
-    count: Int,
+    count: Int?,
     @DrawableRes icon: Int,
     modifier: Modifier = Modifier,
 ) {
@@ -56,7 +56,7 @@ fun CountCard(
                 style = MaterialTheme.typography.titleMedium
             )
 
-            Text(text = count.toString())
+            Text(text = count?.toString() ?: "...")
 
             HorizontalSpacer(space = 4.dp)
 

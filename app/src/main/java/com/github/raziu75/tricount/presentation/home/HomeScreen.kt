@@ -10,24 +10,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.raziu75.tricount.R
 import com.github.raziu75.tricount.presentation.home.composable.CountCard
+import com.github.raziu75.tricount.presentation.home.state.UiState
 
 @Preview(showSystemUi = true)
 @Composable
 private fun HomeScreenPreview() {
     MaterialTheme {
-        HomeScreen(participantCount = 4)
+        HomeScreen(state = UiState(participantCount = 4))
     }
 }
 
 @Composable
 fun HomeScreen(
-    participantCount: Int,
+    state: UiState,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.padding(24.dp)) {
         CountCard(
             title = stringResource(id = R.string.home_participants_card_title),
-            count = participantCount,
+            count = state.participantCount,
             icon = R.drawable.ic_person
         )
     }
