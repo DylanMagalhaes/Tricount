@@ -1,4 +1,4 @@
-package com.github.raziu75.tricount.presentation.participant.composable
+package com.github.raziu75.tricount.presentation.participant.list.composable
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

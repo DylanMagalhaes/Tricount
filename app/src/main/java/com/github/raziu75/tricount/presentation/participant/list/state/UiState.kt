@@ -1,4 +1,4 @@
-package com.github.raziu75.tricount.presentation.participant.state
+package com.github.raziu75.tricount.presentation.participant.list.state
 
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
 
