@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnLifecycleDestroyed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.github.raziu75.tricount.presentation.participant.ParticipantListFragment
+import com.github.raziu75.tricount.presentation.participant.list.ParticipantListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
