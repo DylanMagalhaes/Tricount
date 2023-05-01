@@ -26,7 +26,9 @@ import com.github.raziu75.tricount.R
 import com.github.raziu75.tricount.presentation.participant.list.composable.ParticipantItem
 import com.github.raziu75.tricount.presentation.participant.list.state.UiState
 
-@Preview(showBackground = true) @Composable private fun ParticipantListScreenPreview() {
+@Preview(showBackground = true)
+@Composable
+private fun ParticipantListScreenPreview() {
     MaterialTheme {
         ParticipantListScreen(
             modifier = Modifier.fillMaxSize(),
@@ -48,7 +50,7 @@ import com.github.raziu75.tricount.presentation.participant.list.state.UiState
         Column(modifier = Modifier.padding(24.dp)) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = stringResource(id = R.string.participantlist_title),
+                text = stringResource(id = R.string.participant_list_title),
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center,
             )
@@ -57,7 +59,7 @@ import com.github.raziu75.tricount.presentation.participant.list.state.UiState
                 Box(modifier = Modifier.fillMaxSize()) {
                     Text(
                         modifier = Modifier.align(Alignment.Center),
-                        text = stringResource(id = R.string.participantlist_participants_empty),
+                        text = stringResource(id = R.string.participant_list_participants_empty),
                         textAlign = TextAlign.Center
                     )
                 }
@@ -76,6 +78,7 @@ import com.github.raziu75.tricount.presentation.participant.list.state.UiState
                 }
             }
         }
+        
         FloatingActionButton(
             onClick = onAddParticipantClick,
             modifier = Modifier

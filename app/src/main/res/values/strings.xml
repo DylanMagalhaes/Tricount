@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Tricount</string>
     <string name="home_participants_card_title">Participants</string>
-    <string name="participantlist_title">Participants</string>
-    <string name="participantlist_participants_empty">Aucun participant</string>
+
+    <string name="participant_list_title">Participants</string>
+    <string name="participant_list_participants_empty">Aucun participant</string>
+
+    <string name="add_participant_title">Ajouter un participant</string>
+
+    <string name="add_participant_input_label_name">Nom</string>
+    <string name="add_participant_action_add">Ajouter</string>
+
 </resources>
