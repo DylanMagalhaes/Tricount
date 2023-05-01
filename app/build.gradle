@@ -53,9 +53,10 @@ dependencies {
     implementation libs.androidx.activity.compose
     implementation libs.androidx.appcompat
     implementation libs.androidx.compose.material3
+    implementation libs.androidx.compose.material.icons.core
+    debugImplementation libs.androidx.compose.ui.tooling.base
     implementation libs.androidx.compose.ui.tooling.preview
     implementation libs.androidx.core.ktx
-    implementation libs.androidx.fragment
     implementation libs.androidx.fragment.ktx
     implementation libs.androidx.lifecycle.runtime.ktx
     implementation libs.androidx.lifecycle.viewmodel.compose
@@ -67,10 +68,9 @@ dependencies {
     implementation libs.gson
     implementation libs.retrofit
     implementation libs.dagger.hilt.android
+    implementation platform(libs.androidx.compose.bom)
 
     kapt libs.dagger.hilt.compiler
-
-    debugImplementation libs.androidx.compose.ui.tooling
 
     ksp libs.androidx.room.compiler
 
