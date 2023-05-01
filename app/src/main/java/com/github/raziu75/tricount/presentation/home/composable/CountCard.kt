@@ -41,7 +41,7 @@ fun CountCard(
     Surface(
         modifier = modifier,
         shape = MaterialTheme.shapes.medium,
-        shadowElevation = 4.dp
+        shadowElevation = 2.dp
     ) {
         Row(
             modifier = Modifier

@@ -1,5 +1,6 @@
 package com.github.raziu75.tricount.presentation.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -27,7 +28,11 @@ fun HomeScreen(
     state: UiState,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.padding(24.dp)) {
+    Column(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.background)
+            .padding(24.dp)
+    ) {
         CountCard(
             title = stringResource(id = R.string.home_participants_card_title),
             count = state.participantCount,
