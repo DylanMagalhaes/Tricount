@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnLifecycleDestroyed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.github.raziu75.tricount.presentation.common.fragment.replaceFragmentLazy
 import com.github.raziu75.tricount.presentation.participant.ParticipantListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,14 +46,12 @@ class HomeFragment : Fragment() {
         }
 
     private fun startParticipantListUi() {
-        parentFragmentManager
-            .beginTransaction()
-            .replace(
-                android.R.id.content,
-                ParticipantListFragment.newInstance(),
-                ParticipantListFragment.TAG,
-            )
-            .commitNow()
+        parentFragmentManager.replaceFragmentLazy(
+            containerId = android.R.id.content,
+            tag = ParticipantListFragment.TAG,
+            addToBackStack = true,
+            lazyFragment = { ParticipantListFragment.newInstance() }
+        )
     }
 
     companion object {

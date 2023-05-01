@@ -2,6 +2,7 @@ package com.github.raziu75.tricount.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.github.raziu75.tricount.presentation.common.fragment.replaceFragmentLazy
 import com.github.raziu75.tricount.presentation.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,13 +16,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showHomeUi() {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(
-                android.R.id.content,
-                HomeFragment.newInstance(),
-                HomeFragment.TAG,
-            )
-            .commitNow()
+        supportFragmentManager.replaceFragmentLazy(
+            containerId = android.R.id.content,
+            tag = HomeFragment.TAG,
+            lazyFragment = { HomeFragment.newInstance() }
+        )
     }
 }
