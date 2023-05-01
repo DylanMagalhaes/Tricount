@@ -27,6 +27,7 @@ private fun AddParticipantScreenPreview() {
             onAddButtonClick = {}
         )
     }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,7 +62,7 @@ fun AddParticipantScreen(
         Button(onClick = onAddButtonClick) {
             Text(text = stringResource(id = R.string.add_participant_action_add))
         }
-        
+
         VerticalSpacer(space = 24.dp)
     }
 }

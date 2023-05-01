@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnLifecycleDestroyed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.github.raziu75.tricount.presentation.participant.add.AddParticipantFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,11 +35,15 @@ class ParticipantListFragment : Fragment() {
                     ParticipantListScreen(
                         modifier = Modifier.fillMaxSize(),
                         state = uiState,
-                        onAddParticipantClick = {}
+                        onAddParticipantClick = { startAddParticipantUi() }
                     )
                 }
             }
         }
+
+    private fun startAddParticipantUi() {
+        AddParticipantFragment.show(childFragmentManager)
+    }
 
     companion object {
         const val TAG = "ParticipantListFragment"
