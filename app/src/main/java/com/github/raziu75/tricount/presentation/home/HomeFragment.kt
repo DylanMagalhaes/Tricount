@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy.DisposeOnLifecycleDestroyed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.github.raziu75.tricount.presentation.participant.ParticipantListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,10 +38,22 @@ class HomeFragment : Fragment() {
                     HomeScreen(
                         modifier = Modifier.fillMaxSize(),
                         state = uiState,
+                        navigateToParticipantList = { startParticipantListUi() },
                     )
                 }
             }
         }
+
+    private fun startParticipantListUi() {
+        parentFragmentManager
+            .beginTransaction()
+            .replace(
+                android.R.id.content,
+                ParticipantListFragment.newInstance(),
+                ParticipantListFragment.TAG,
+            )
+            .commitNow()
+    }
 
     companion object {
         const val TAG = "HomeFragment"

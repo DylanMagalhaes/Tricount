@@ -23,13 +23,17 @@ import com.github.raziu75.tricount.presentation.home.state.UiState
 @Composable
 private fun HomeScreenPreview() {
     MaterialTheme {
-        HomeScreen(state = UiState(participantCount = 4))
+        HomeScreen(
+            state = UiState(participantCount = 4),
+            navigateToParticipantList = {},
+        )
     }
 }
 
 @Composable
 fun HomeScreen(
     state: UiState,
+    navigateToParticipantList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -50,6 +54,7 @@ fun HomeScreen(
             title = stringResource(id = R.string.home_participants_card_title),
             count = state.participantCount,
             icon = Icons.Default.Person,
+            onClick = navigateToParticipantList,
         )
     }
 }
