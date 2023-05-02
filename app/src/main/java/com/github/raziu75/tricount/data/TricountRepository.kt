@@ -53,6 +53,12 @@ class TricountRepository @Inject constructor(private val dao: TricountDao) {
         )
     }
 
+    suspend fun createParticipant(name: String): Participant {
+        val participantId = dao.createParticipant(participant = ParticipantEntity(name = name))
+        return Participant(participantId, name)
+    }
+
+
     suspend fun getParticipants(): List<Participant> =
         dao.getAllParticipants().map(ParticipantEntity::toDomain)
 

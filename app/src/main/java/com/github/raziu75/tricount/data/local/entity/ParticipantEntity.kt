@@ -8,6 +8,6 @@ import androidx.room.PrimaryKey
 data class ParticipantEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("participant_id")
-    val participantId: Long,
+    val participantId: Long = 0,
     val name: String
 )

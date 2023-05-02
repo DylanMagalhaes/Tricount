@@ -24,7 +24,7 @@ interface TricountDao {
     suspend fun updateTransactionPayer(transactionId: Long, payerId: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun createParticipant(transaction: TransactionEntity)
+    suspend fun createParticipant(participant: ParticipantEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createTransactionParticipantsCrossRef(refs: List<TransactionParticipantCrossRef>)
