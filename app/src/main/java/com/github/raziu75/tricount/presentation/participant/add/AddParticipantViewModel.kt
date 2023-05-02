@@ -1,6 +1,7 @@
 package com.github.raziu75.tricount.presentation.participant.add
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.github.raziu75.tricount.data.TricountRepository
 import com.github.raziu75.tricount.presentation.participant.add.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -8,6 +9,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class AddParticipantViewModel
@@ -24,4 +26,13 @@ class AddParticipantViewModel
         }
     }
 
+    fun onSubmitClick() {
+        viewModelScope.launch {
+            repository.createParticipant(uiState.value.nameValue)
+        }
+
+        _uiState.update {
+            it.copy(nameValue = "")
+        }
+    }
 }

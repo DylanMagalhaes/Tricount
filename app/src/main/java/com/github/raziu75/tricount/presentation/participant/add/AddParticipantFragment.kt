@@ -38,7 +38,7 @@ class AddParticipantFragment : BottomSheetDialogFragment() {
                     AddParticipantScreen(
                         nameValue = uiState.nameValue,
                         onNameChange = { viewModel.onNameInputChange(it) },
-                        onAddButtonClick = {}
+                        onAddButtonClick = { viewModel.onSubmitClick() }
                     )
                 }
             }
