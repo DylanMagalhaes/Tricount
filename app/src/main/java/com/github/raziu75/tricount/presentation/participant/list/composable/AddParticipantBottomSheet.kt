@@ -23,6 +23,7 @@ import com.github.raziu75.tricount.presentation.common.compose.VerticalSpacer
 @Composable
 fun AddParticipantBottomSheet(
     nameValue: String,
+    submitButtonEnabled: Boolean,
     onNameChange: (String) -> Unit,
     onAddButtonClick: () -> Unit,
     onDismiss: () -> Unit,
@@ -51,7 +52,10 @@ fun AddParticipantBottomSheet(
 
             VerticalSpacer(space = 16.dp)
 
-            Button(onClick = onAddButtonClick) {
+            Button(
+                onClick = onAddButtonClick,
+                enabled = submitButtonEnabled
+            ) {
                 Text(text = stringResource(id = R.string.add_participant_action_add))
             }
 

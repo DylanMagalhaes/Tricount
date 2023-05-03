@@ -24,13 +24,18 @@ import kotlinx.coroutines.launch
     }
 
     fun onNameInputChange(value: String) {
+        val isInputValid = value.isNotBlank()
+
         _uiState.update {
-            it.copy(nameValue = value)
+            it.copy(
+                addParticipantSubmitButtonEnabled = isInputValid,
+                nameValue = value
+            )
         }
     }
 
     fun onAddParticipantSubmitClick() {
-        if (uiState.value.nameValue.trim().isEmpty()) return
+        if (uiState.value.nameValue.isNotBlank()) return
 
         viewModelScope.launch {
             repository.createParticipant(uiState.value.nameValue)

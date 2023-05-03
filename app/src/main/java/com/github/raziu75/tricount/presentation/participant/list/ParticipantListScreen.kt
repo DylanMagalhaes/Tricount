@@ -100,6 +100,7 @@ private fun ParticipantListScreenPreview() {
             AddParticipantBottomSheet(
                 modifier = Modifier.fillMaxWidth(),
                 nameValue = state.nameValue,
+                submitButtonEnabled = state.addParticipantSubmitButtonEnabled,
                 onNameChange = onAddParticipantNameInputChange,
                 onAddButtonClick = onAddParticipantSubmitClick,
                 onDismiss = onAddParticipantDismiss,

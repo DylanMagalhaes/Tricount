@@ -6,4 +6,5 @@ data class UiState(
     val participantList: List<Participant> = emptyList(),
     val nameValue: String = "",
     val addParticipantBottomSheetVisible: Boolean = false,
+    val addParticipantSubmitButtonEnabled: Boolean = false,
 )
