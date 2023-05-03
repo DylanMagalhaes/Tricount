@@ -30,6 +30,8 @@ import kotlinx.coroutines.launch
     }
 
     fun onAddParticipantSubmitClick() {
+        if (uiState.value.nameValue.trim().isEmpty()) return
+
         viewModelScope.launch {
             repository.createParticipant(uiState.value.nameValue)
         }
