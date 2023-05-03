@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.raziu75.tricount.R
+import com.github.raziu75.tricount.presentation.participant.list.composable.AddParticipantBottomSheet
 import com.github.raziu75.tricount.presentation.participant.list.composable.ParticipantItem
 import com.github.raziu75.tricount.presentation.participant.list.state.UiState
 
@@ -35,17 +37,23 @@ private fun ParticipantListScreenPreview() {
             state = UiState(
                 participantList = emptyList()
             ),
-            onAddParticipantClick = {}
+            onAddParticipantFabClick = {},
+            onAddParticipantNameInputChange = {},
+            onAddParticipantSubmitClick = {},
+            onAddParticipantDismiss = {},
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable fun ParticipantListScreen(
     state: UiState,
-    onAddParticipantClick: () -> Unit,
+    onAddParticipantFabClick: () -> Unit,
+    onAddParticipantNameInputChange: (String) -> Unit,
+    onAddParticipantSubmitClick: () -> Unit,
+    onAddParticipantDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val participantList = state.participantList
     Box(modifier = modifier) {
         Column(modifier = Modifier.padding(24.dp)) {
             Text(
@@ -55,7 +63,7 @@ private fun ParticipantListScreenPreview() {
                 textAlign = TextAlign.Center,
             )
 
-            if (participantList.isEmpty()) {
+            if (state.participantList.isEmpty()) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Text(
                         modifier = Modifier.align(Alignment.Center),
@@ -69,7 +77,7 @@ private fun ParticipantListScreenPreview() {
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     contentPadding = PaddingValues(top = 32.dp),
                 ) {
-                    items(participantList) { item ->
+                    items(state.participantList) { item ->
                         ParticipantItem(
                             modifier = modifier.fillMaxWidth(),
                             participant = item,
@@ -78,14 +86,24 @@ private fun ParticipantListScreenPreview() {
                 }
             }
         }
-        
+
         FloatingActionButton(
-            onClick = onAddParticipantClick,
+            onClick = onAddParticipantFabClick,
             modifier = Modifier
                 .padding(bottom = 24.dp)
                 .align(Alignment.BottomCenter)
         ) {
             Icon(Icons.Filled.Add, contentDescription = null)
+        }
+
+        if (state.addParticipantBottomSheetVisible) {
+            AddParticipantBottomSheet(
+                modifier = Modifier.fillMaxWidth(),
+                nameValue = state.nameValue,
+                onNameChange = onAddParticipantNameInputChange,
+                onAddButtonClick = onAddParticipantSubmitClick,
+                onDismiss = onAddParticipantDismiss,
+            )
         }
     }
 }
