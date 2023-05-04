@@ -4,6 +4,7 @@ import com.github.raziu75.tricount.data.local.dao.TricountDao
 import com.github.raziu75.tricount.data.local.entity.ParticipantEntity
 import com.github.raziu75.tricount.data.local.entity.TransactionEntity
 import com.github.raziu75.tricount.data.local.entity.relation.TransactionParticipantCrossRef
+import com.github.raziu75.tricount.data.local.entity.relation.TransactionWithParticipants
 import com.github.raziu75.tricount.data.local.mapper.toDomain
 import com.github.raziu75.tricount.domain.model.Transaction
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
@@ -52,6 +53,13 @@ class TricountRepository @Inject constructor(private val dao: TricountDao) {
             participants = participants.map(ParticipantEntity::toDomain)
         )
     }
+
+    suspend fun getAllTransactions(): List<Transaction> =
+        dao.getAllTransactions()
+            .mapNotNull { transactionEntity ->
+                dao.getTransactionWithParticipants(transactionId = transactionEntity.transactionId)
+            }
+            .map(TransactionWithParticipants::toDomain)
 
     suspend fun createParticipant(name: String): Participant {
         val participantId = dao.createParticipant(participant = ParticipantEntity(name = name))
