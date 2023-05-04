@@ -64,4 +64,7 @@ class TricountRepository @Inject constructor(private val dao: TricountDao) {
 
     suspend fun getParticipants(): List<Participant> =
         dao.getAllParticipants().map(ParticipantEntity::toDomain)
+
+    suspend fun getSumOfTransactionsInCents(): Int =
+        dao.getSumOfTransactionsInCents()
 }

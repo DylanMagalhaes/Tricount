@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.raziu75.tricount.R
+import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.presentation.participant.list.composable.AddParticipantBottomSheet
 import com.github.raziu75.tricount.presentation.participant.list.composable.ParticipantItem
 import com.github.raziu75.tricount.presentation.participant.list.state.UiState
@@ -41,6 +42,7 @@ private fun ParticipantListScreenPreview() {
             onAddParticipantNameInputChange = {},
             onAddParticipantSubmitClick = {},
             onAddParticipantDismiss = {},
+            onDeleteParticipantClick = {},
         )
     }
 }
@@ -52,6 +54,7 @@ private fun ParticipantListScreenPreview() {
     onAddParticipantNameInputChange: (String) -> Unit,
     onAddParticipantSubmitClick: () -> Unit,
     onAddParticipantDismiss: () -> Unit,
+    onDeleteParticipantClick: (Participant) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
@@ -81,6 +84,7 @@ private fun ParticipantListScreenPreview() {
                         ParticipantItem(
                             modifier = modifier.fillMaxWidth(),
                             participant = item,
+                            onDeleteClick = onDeleteParticipantClick,
                         )
                     }
                 }

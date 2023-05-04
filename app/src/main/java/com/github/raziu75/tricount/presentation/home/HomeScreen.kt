@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.EuroSymbol
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -52,9 +53,18 @@ fun HomeScreen(
 
         CountCard(
             title = stringResource(id = R.string.home_participants_card_title),
-            count = state.participantCount,
+            count = state.participantCount?.toString(),
             icon = Icons.Default.Person,
             onClick = navigateToParticipantList,
+        )
+
+        VerticalSpacer(space = 16.dp)
+
+        CountCard(
+            title = stringResource(id = R.string.home_transactions_card_title),
+            count = state.totalExpensesInCents?.div(100f)?.toString(),
+            icon = Icons.Default.EuroSymbol,
+            onClick = {},
         )
     }
 }

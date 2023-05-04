@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -20,7 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.raziu75.tricount.presentation.common.compose.HorizontalSpacer
 
-@Preview @Composable private fun CountCardPreview() {
+@Preview
+@Composable
+private fun CountCardPreview() {
     MaterialTheme {
         CountCard(
             title = "Participant",
@@ -31,9 +32,10 @@ import com.github.raziu75.tricount.presentation.common.compose.HorizontalSpacer
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class) @Composable fun CountCard(
+@Composable
+fun CountCard(
     title: String,
-    count: Int?,
+    count: String?,
     icon: ImageVector,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -57,7 +59,7 @@ import com.github.raziu75.tricount.presentation.common.compose.HorizontalSpacer
                 style = MaterialTheme.typography.titleMedium
             )
 
-            Text(text = count?.toString() ?: "...")
+            Text(text = count ?: "...")
 
             HorizontalSpacer(space = 4.dp)
 

@@ -35,4 +35,8 @@ interface TricountDao {
     @Transaction
     @Query("SELECT * FROM `participant`")
     suspend fun getAllParticipants(): List<ParticipantEntity>
+
+    @Transaction
+    @Query("SELECT SUM(amount_in_cents) FROM `transaction`")
+    suspend fun getSumOfTransactionsInCents(): Int
 }

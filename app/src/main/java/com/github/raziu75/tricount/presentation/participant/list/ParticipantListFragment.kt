@@ -37,7 +37,8 @@ class ParticipantListFragment : Fragment() {
                         onAddParticipantFabClick = { viewModel.onAddParticipantFabClick() },
                         onAddParticipantNameInputChange = { viewModel.onNameInputChange(it) },
                         onAddParticipantSubmitClick = { viewModel.onAddParticipantSubmitClick() },
-                        onAddParticipantDismiss = { viewModel.onAddParticipantDismiss() }
+                        onAddParticipantDismiss = { viewModel.onAddParticipantDismiss() },
+                        onDeleteParticipantClick = { viewModel.onDeleteParticipantClick(it) }
                     )
                 }
             }

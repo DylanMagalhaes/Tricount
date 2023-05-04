@@ -6,6 +6,7 @@ import com.github.raziu75.tricount.data.TricountRepository
 import com.github.raziu75.tricount.presentation.home.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -22,10 +23,14 @@ class HomeViewModel
 
     init {
         viewModelScope.launch {
-            val participants = repository.getParticipants()
+            val participants = async { repository.getParticipants() }
+            val sumOfTransactionsInCents = async { repository.getSumOfTransactionsInCents() }
 
             _uiState.update {
-                it.copy(participantCount = participants.size)
+                it.copy(
+                    participantCount = participants.await().size,
+                    totalExpensesInCents = sumOfTransactionsInCents.await()
+                )
             }
         }
     }

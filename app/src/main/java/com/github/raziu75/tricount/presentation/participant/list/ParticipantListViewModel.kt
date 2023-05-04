@@ -3,6 +3,7 @@ package com.github.raziu75.tricount.presentation.participant.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.raziu75.tricount.data.TricountRepository
+import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.presentation.participant.list.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -35,7 +36,7 @@ import kotlinx.coroutines.launch
     }
 
     fun onAddParticipantSubmitClick() {
-        if (uiState.value.nameValue.isNotBlank()) return
+        if (uiState.value.nameValue.isBlank()) return
 
         viewModelScope.launch {
             repository.createParticipant(uiState.value.nameValue)
@@ -46,6 +47,21 @@ import kotlinx.coroutines.launch
         }
 
         fetchParticipantList()
+    }
+
+    fun onDeleteParticipantClick(participant: Participant) {
+        viewModelScope.launch {
+            repository.deleteParticipant(participant)
+
+            _uiState.update {
+                it.copy(
+                    participantList =
+                    it.participantList
+                        .toMutableList()
+                        .apply { remove(participant) }
+                )
+            }
+        }
     }
 
     fun onAddParticipantFabClick() {
