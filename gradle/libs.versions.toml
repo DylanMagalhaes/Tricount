@@ -1,5 +1,6 @@
 [versions]
 activity = "1.7.1"
+androidCoreTesting = "2.2.0"
 androidx-junit = "1.1.5"
 appcompat = "1.6.1"
 coil-compose = "2.2.2"
@@ -10,9 +11,11 @@ fragment = "1.5.7"
 gson = "2.10.1"
 hilt = "2.46"
 junit = "4.13.2"
+kotlinxCoroutinesTest = "1.6.4"
 lifecycle = "2.6.1"
 material = "1.8.0"
 material3 = "1.1.0-rc01"
+mockk = "1.12.4"
 navigation-compose = "2.5.3"
 retrofit = "2.9.0"
 room = "2.5.1"
@@ -23,6 +26,7 @@ android-material = { module = "com.google.android.material:material", version.re
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "androidCoreTesting" }
 
 androidx-compose-bom = "androidx.compose:compose-bom:2023.04.01"
 androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
@@ -49,4 +53,6 @@ dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 junit = { module = "junit:junit", version.ref = "junit" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
