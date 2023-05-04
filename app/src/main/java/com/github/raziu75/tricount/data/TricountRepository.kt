@@ -58,8 +58,10 @@ class TricountRepository @Inject constructor(private val dao: TricountDao) {
         return Participant(participantId, name)
     }
 
+    suspend fun deleteParticipant(participant: Participant) {
+        dao.deleteParticipant(participant.id)
+    }
 
     suspend fun getParticipants(): List<Participant> =
         dao.getAllParticipants().map(ParticipantEntity::toDomain)
-
 }

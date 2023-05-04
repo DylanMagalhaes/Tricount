@@ -26,6 +26,9 @@ interface TricountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createParticipant(participant: ParticipantEntity): Long
 
+    @Query("DELETE FROM `participant` WHERE participant_id = :participantId")
+    suspend fun deleteParticipant(participantId: Long)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createTransactionParticipantsCrossRef(refs: List<TransactionParticipantCrossRef>)
 
