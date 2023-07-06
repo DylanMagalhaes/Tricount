@@ -1,14 +1,14 @@
 package com.github.raziu75.tricount.presentation.participant.list.usecases
 
 import com.github.raziu75.tricount.data.TricountRepository
-import com.github.raziu75.tricount.domain.model.Transaction.Participant
+import com.github.raziu75.tricount.domain.model.Transaction
 import javax.inject.Inject
 
-class FetchParticipantListUseCase
+class AddParticipantUseCase
 @Inject constructor(
     private val repository: TricountRepository,
-) {
-    suspend operator fun invoke(): List<Participant> {
-        return repository.getParticipants()
+){
+    suspend operator fun invoke(participant: String): Transaction.Participant {
+        return repository.createParticipant(participant)
     }
 }
