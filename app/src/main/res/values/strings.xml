@@ -13,4 +13,7 @@
 
     <string name="transaction_list_item_paid_by_label">Payé par %s</string>
     <string name="transaction_list_item_price_label">%s €</string>
+
+    <string name="add_transaction_title">Ajouter une dépense</string>
+
 </resources>
