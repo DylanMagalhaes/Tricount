@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.raziu75.tricount.R
 
-
 @Preview(showBackground = true)
 @Composable
 private fun TransactionListScreenPreview() {
