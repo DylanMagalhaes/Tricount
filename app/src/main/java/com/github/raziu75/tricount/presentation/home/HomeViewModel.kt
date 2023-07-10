@@ -4,6 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.raziu75.tricount.data.TricountRepository
 import com.github.raziu75.tricount.presentation.home.state.UiState
+import com.github.raziu75.tricount.presentation.participant.list.usecases.DeleteParticipantUseCase
+import com.github.raziu75.tricount.presentation.participant.list.usecases.FetchParticipantListUseCase
+import com.github.raziu75.tricount.presentation.participant.list.usecases.GetSumOfTransactionsInCentsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.async
@@ -15,7 +18,8 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class HomeViewModel
 @Inject constructor(
-    private val repository: TricountRepository,
+    private val fetchParticipantListUseCase: FetchParticipantListUseCase,
+    getSumOfTransactionsInCentsUseCase: GetSumOfTransactionsInCentsUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -23,8 +27,8 @@ class HomeViewModel
 
     init {
         viewModelScope.launch {
-            val participants = async { repository.getParticipants() }
-            val sumOfTransactionsInCents = async { repository.getSumOfTransactionsInCents() }
+            val participants = async { fetchParticipantListUseCase() }
+            val sumOfTransactionsInCents = async { getSumOfTransactionsInCentsUseCase() }
 
             _uiState.update {
                 it.copy(
