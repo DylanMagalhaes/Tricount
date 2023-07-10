@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 @Inject constructor(
 
     private val repository: TricountRepository,
+    private val addParticipantUseCase :AddParticipantUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -43,7 +44,7 @@ import kotlinx.coroutines.launch
         if (uiState.value.nameValue.isBlank()) return
 
         viewModelScope.launch {
-            repository.createParticipant(uiState.value.nameValue)
+            addParticipantUseCase(uiState.value.nameValue)
         }
 
         _uiState.update {

@@ -1,6 +1,8 @@
 package com.github.raziu75.tricount.presentation.participant.list
 
 import com.github.raziu75.tricount.common.TestDispatcherRule
+import com.github.raziu75.tricount.data.TricountRepository
+import com.github.raziu75.tricount.presentation.participant.list.usecases.AddParticipantUseCase
 import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -11,7 +13,11 @@ import org.junit.Test
 class ParticipantListViewModelTest {
     @get: Rule val dispatcherRule = TestDispatcherRule()
 
-    private fun viewModel() = ParticipantListViewModel(repository = mockk(relaxed = true))
+    private val repository: TricountRepository = mockk()
+    private fun viewModel() = ParticipantListViewModel(
+        repository = mockk(),
+    addParticipantUseCase = AddParticipantUseCase(repository)
+    )
 
     @Test
     fun `onNameInputChange, should disable submit button when input is blank`() {
