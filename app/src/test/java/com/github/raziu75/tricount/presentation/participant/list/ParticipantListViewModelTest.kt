@@ -1,9 +1,9 @@
 package com.github.raziu75.tricount.presentation.participant.list
 
 import com.github.raziu75.tricount.common.TestDispatcherRule
-import com.github.raziu75.tricount.data.TricountRepository
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.presentation.participant.list.usecases.AddParticipantUseCase
+import com.github.raziu75.tricount.presentation.participant.list.usecases.DeleteParticipantUseCase
 import com.github.raziu75.tricount.presentation.participant.list.usecases.FetchParticipantListUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -16,13 +16,14 @@ import org.junit.Test
 class ParticipantListViewModelTest {
     @get: Rule val dispatcherRule = TestDispatcherRule()
 
-    private val repository: TricountRepository = mockk()
     private val fetchParticipantListUseCase: FetchParticipantListUseCase = mockk(relaxed = true)
     private val addParticipantUseCase: AddParticipantUseCase = mockk()
+    private val deleteParticipantUseCase: DeleteParticipantUseCase = mockk()
+
     private fun viewModel() = ParticipantListViewModel(
-        repository = repository,
         addParticipantUseCase = addParticipantUseCase,
-        fetchParticipantListUseCase = fetchParticipantListUseCase
+        fetchParticipantListUseCase = fetchParticipantListUseCase,
+        deleteParticipantUseCase = deleteParticipantUseCase
     )
 
     @Test
@@ -99,5 +100,27 @@ class ParticipantListViewModelTest {
 
         //THEN
         assertEquals(participants, viewModel.uiState.value.participantList)
+    }
+
+    @Test
+    fun `on delete participant click, should delete participant`() {
+        //GIVEN
+        val sonny = Participant(0, "Sonny")
+        val boysNoize = Participant(0, "BoysNoize")
+        val participants = listOf(sonny, boysNoize)
+
+        coEvery { fetchParticipantListUseCase() } returns participants
+        coEvery { deleteParticipantUseCase(boysNoize) } returns Unit
+
+        val viewModel = viewModel()
+
+        //WHEN
+        viewModel.onDeleteParticipantClick(boysNoize)
+
+        //THEN
+        val expected = listOf(sonny)
+        val actual = viewModel.uiState.value.participantList
+
+        assertEquals(expected, actual)
     }
 }

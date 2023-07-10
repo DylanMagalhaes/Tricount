@@ -2,7 +2,6 @@ package com.github.raziu75.tricount.presentation.participant.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.raziu75.tricount.data.TricountRepository
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.presentation.participant.list.state.UiState
 import com.github.raziu75.tricount.presentation.participant.list.usecases.AddParticipantUseCase
@@ -17,10 +16,9 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel class ParticipantListViewModel
 @Inject constructor(
-
-    private val repository: TricountRepository,
-    private val addParticipantUseCase :AddParticipantUseCase,
-    private val fetchParticipantListUseCase: FetchParticipantListUseCase
+    private val addParticipantUseCase: AddParticipantUseCase,
+    private val fetchParticipantListUseCase: FetchParticipantListUseCase,
+    private val deleteParticipantUseCase: DeleteParticipantUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -57,7 +55,7 @@ import kotlinx.coroutines.launch
 
     fun onDeleteParticipantClick(participant: Participant) {
         viewModelScope.launch {
-            repository.deleteParticipant(participant)
+            deleteParticipantUseCase(participant)
 
             _uiState.update {
                 it.copy(
