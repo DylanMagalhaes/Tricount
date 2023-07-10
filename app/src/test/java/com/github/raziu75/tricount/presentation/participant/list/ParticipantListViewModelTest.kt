@@ -2,7 +2,10 @@ package com.github.raziu75.tricount.presentation.participant.list
 
 import com.github.raziu75.tricount.common.TestDispatcherRule
 import com.github.raziu75.tricount.data.TricountRepository
+import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.presentation.participant.list.usecases.AddParticipantUseCase
+import com.github.raziu75.tricount.presentation.participant.list.usecases.FetchParticipantListUseCase
+import io.mockk.coEvery
 import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -14,9 +17,12 @@ class ParticipantListViewModelTest {
     @get: Rule val dispatcherRule = TestDispatcherRule()
 
     private val repository: TricountRepository = mockk()
+    private val fetchParticipantListUseCase: FetchParticipantListUseCase = mockk(relaxed = true)
+    private val addParticipantUseCase: AddParticipantUseCase = mockk()
     private fun viewModel() = ParticipantListViewModel(
-        repository = mockk(),
-    addParticipantUseCase = AddParticipantUseCase(repository)
+        repository = repository,
+        addParticipantUseCase = addParticipantUseCase,
+        fetchParticipantListUseCase = fetchParticipantListUseCase
     )
 
     @Test
@@ -80,5 +86,18 @@ class ParticipantListViewModelTest {
 
         //THEN
         assertFalse(viewModel.uiState.value.addParticipantBottomSheetVisible)
+    }
+
+    @Test
+    fun `on init, should show participants`() {
+        //GIVEN
+        val participants = listOf<Participant>()
+        coEvery { fetchParticipantListUseCase() } returns participants
+
+        //WHEN
+        val viewModel = viewModel()
+
+        //THEN
+        assertEquals(participants, viewModel.uiState.value.participantList)
     }
 }

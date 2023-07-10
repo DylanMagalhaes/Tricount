@@ -19,7 +19,8 @@ import kotlinx.coroutines.launch
 @Inject constructor(
 
     private val repository: TricountRepository,
-    private val addParticipantUseCase :AddParticipantUseCase
+    private val addParticipantUseCase :AddParticipantUseCase,
+    private val fetchParticipantListUseCase: FetchParticipantListUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -83,7 +84,7 @@ import kotlinx.coroutines.launch
 
     private fun fetchParticipantList() {
         viewModelScope.launch {
-            val participantList = repository.getParticipants()
+            val participantList = fetchParticipantListUseCase()
 
             _uiState.update {
                 it.copy(participantList = participantList)
