@@ -27,6 +27,7 @@ private fun HomeScreenPreview() {
         HomeScreen(
             state = UiState(participantCount = 4),
             navigateToParticipantList = {},
+            navigateToTransactionList = {}
         )
     }
 }
@@ -35,6 +36,7 @@ private fun HomeScreenPreview() {
 fun HomeScreen(
     state: UiState,
     navigateToParticipantList: () -> Unit,
+    navigateToTransactionList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -64,7 +66,7 @@ fun HomeScreen(
             title = stringResource(id = R.string.home_transactions_card_title),
             count = state.totalExpensesInCents?.div(100f)?.toString(),
             icon = Icons.Default.EuroSymbol,
-            onClick = {},
+            onClick = navigateToTransactionList,
         )
     }
 }

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.raziu75.tricount.presentation.common.fragment.replaceFragmentLazy
 import com.github.raziu75.tricount.presentation.participant.list.ParticipantListFragment
+import com.github.raziu75.tricount.presentation.transaction.TransactionListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,10 +41,21 @@ class HomeFragment : Fragment() {
                         modifier = Modifier.fillMaxSize(),
                         state = uiState,
                         navigateToParticipantList = { startParticipantListUi() },
+                        navigateToTransactionList = { startTransactionListUi() }
                     )
                 }
             }
         }
+
+    private fun startTransactionListUi() {
+        parentFragmentManager.replaceFragmentLazy(
+            containerId = android.R.id.content,
+            tag = TransactionListFragment.TAG,
+            addToBackStack = true,
+            lazyFragment = { TransactionListFragment.newInstance() }
+        )
+    }
+
 
     private fun startParticipantListUi() {
         parentFragmentManager.replaceFragmentLazy(
