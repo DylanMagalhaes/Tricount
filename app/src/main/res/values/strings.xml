@@ -3,8 +3,12 @@
     <string name="home_participants_card_title">Participants</string>
     <string name="home_transactions_card_title">Dépenses</string>
 
+
     <string name="participant_list_title">Participants</string>
     <string name="participant_list_participants_empty">Aucun participant</string>
+
+    <string name="transactions_list_title">Dépenses</string>
+    <string name="transactions_list_transactions_empty">Aucune Dépenses</string>
 
     <string name="add_participant_title">Ajouter un participant</string>
 
