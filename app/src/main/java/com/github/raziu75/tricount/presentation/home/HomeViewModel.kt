@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 class HomeViewModel
 @Inject constructor(
     private val fetchParticipantListUseCase: FetchParticipantListUseCase,
-    getSumOfTransactionsInCentsUseCase: GetSumOfTransactionsInCentsUseCase
+    private val getSumOfTransactionsInCentsUseCase: GetSumOfTransactionsInCentsUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
