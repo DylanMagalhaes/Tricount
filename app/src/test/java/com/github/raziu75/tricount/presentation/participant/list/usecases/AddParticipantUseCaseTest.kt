@@ -1,7 +1,6 @@
 package com.github.raziu75.tricount.presentation.participant.list.usecases
 
 import com.github.raziu75.tricount.data.TricountRepository
-import com.github.raziu75.tricount.domain.model.Transaction
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -17,9 +16,9 @@ class AddParticipantUseCaseTest {
         val participant = "Melwin"
 
         // WHEN
-        useCase(participant)
+        useCase.invoke(participant)
 
         // THEN
-        coVerify { repository.createParticipant(participant)  }
+        coVerify { repository.createParticipant(participant) }
     }
 }

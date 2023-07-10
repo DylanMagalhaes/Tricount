@@ -22,9 +22,9 @@ class FetchParticipantListUseCaseTest {
         val useCase = FetchParticipantListUseCase(repository)
 
         // WHEN
-        useCase()
+        val actual = useCase()
 
         // THEN
-        assertEquals(listParticipant, repository.getParticipants())
+        assertEquals(listParticipant, actual)
     }
 }
