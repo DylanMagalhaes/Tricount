@@ -2,9 +2,9 @@ package com.github.raziu75.tricount.presentation.participant.list
 
 import com.github.raziu75.tricount.common.TestDispatcherRule
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
-import com.github.raziu75.tricount.presentation.participant.list.usecases.AddParticipantUseCase
-import com.github.raziu75.tricount.presentation.participant.list.usecases.DeleteParticipantUseCase
-import com.github.raziu75.tricount.presentation.participant.list.usecases.FetchParticipantListUseCase
+import com.github.raziu75.tricount.domain.usecases.AddParticipantUseCase
+import com.github.raziu75.tricount.domain.usecases.DeleteParticipantUseCase
+import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import org.junit.Assert.assertEquals

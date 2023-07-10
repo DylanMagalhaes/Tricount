@@ -2,8 +2,8 @@ package com.github.raziu75.tricount.presentation.home
 
 import com.github.raziu75.tricount.common.TestDispatcherRule
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
-import com.github.raziu75.tricount.presentation.participant.list.usecases.FetchParticipantListUseCase
-import com.github.raziu75.tricount.presentation.participant.list.usecases.GetSumOfTransactionsInCentsUseCase
+import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
+import com.github.raziu75.tricount.domain.usecases.GetSumOfTransactionsInCentsUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import org.junit.Assert

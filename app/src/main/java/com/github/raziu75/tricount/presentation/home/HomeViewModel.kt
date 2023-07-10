@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.raziu75.tricount.data.TricountRepository
 import com.github.raziu75.tricount.presentation.home.state.UiState
-import com.github.raziu75.tricount.presentation.participant.list.usecases.DeleteParticipantUseCase
-import com.github.raziu75.tricount.presentation.participant.list.usecases.FetchParticipantListUseCase
-import com.github.raziu75.tricount.presentation.participant.list.usecases.GetSumOfTransactionsInCentsUseCase
+import com.github.raziu75.tricount.domain.usecases.DeleteParticipantUseCase
+import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
+import com.github.raziu75.tricount.domain.usecases.GetSumOfTransactionsInCentsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.async

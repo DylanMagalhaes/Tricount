@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.presentation.participant.list.state.UiState
-import com.github.raziu75.tricount.presentation.participant.list.usecases.AddParticipantUseCase
-import com.github.raziu75.tricount.presentation.participant.list.usecases.DeleteParticipantUseCase
-import com.github.raziu75.tricount.presentation.participant.list.usecases.FetchParticipantListUseCase
+import com.github.raziu75.tricount.domain.usecases.AddParticipantUseCase
+import com.github.raziu75.tricount.domain.usecases.DeleteParticipantUseCase
+import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.github.raziu75.tricount.presentation.participant.list.usecases
+package com.github.raziu75.tricount.domain.usecases
 
 import com.github.raziu75.tricount.data.TricountRepository
 import com.github.raziu75.tricount.domain.model.Transaction.Participant

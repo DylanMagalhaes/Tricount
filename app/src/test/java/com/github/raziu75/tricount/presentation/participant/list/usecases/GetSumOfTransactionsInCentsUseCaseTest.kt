@@ -1,6 +1,7 @@
 package com.github.raziu75.tricount.presentation.participant.list.usecases
 
 import com.github.raziu75.tricount.data.TricountRepository
+import com.github.raziu75.tricount.domain.usecases.GetSumOfTransactionsInCentsUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
