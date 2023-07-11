@@ -1,4 +1,4 @@
-package com.github.raziu75.tricount.presentation.transaction
+package com.github.raziu75.tricount.presentation.transaction.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.github.raziu75.tricount.presentation.transaction.list.TransactionListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

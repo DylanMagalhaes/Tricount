@@ -1,9 +1,10 @@
-package com.github.raziu75.tricount.presentation.transaction
+package com.github.raziu75.tricount.presentation.transaction.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.raziu75.tricount.domain.model.Transaction
 import com.github.raziu75.tricount.domain.usecases.GetAllTransactionsUseCase
-import com.github.raziu75.tricount.presentation.transaction.state.UiState
+import com.github.raziu75.tricount.presentation.transaction.list.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

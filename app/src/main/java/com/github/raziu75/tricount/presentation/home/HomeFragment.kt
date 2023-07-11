@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.raziu75.tricount.presentation.common.fragment.replaceFragmentLazy
 import com.github.raziu75.tricount.presentation.participant.list.ParticipantListFragment
-import com.github.raziu75.tricount.presentation.transaction.TransactionListFragment
+import com.github.raziu75.tricount.presentation.transaction.list.TransactionListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -3,6 +3,7 @@ package com.github.raziu75.tricount.presentation.transaction
 import com.github.raziu75.tricount.common.TestDispatcherRule
 import com.github.raziu75.tricount.domain.model.Transaction
 import com.github.raziu75.tricount.domain.usecases.GetAllTransactionsUseCase
+import com.github.raziu75.tricount.presentation.transaction.list.TransactionListViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import org.junit.Assert.*

@@ -1,4 +1,4 @@
-package com.github.raziu75.tricount.presentation.transaction.list.composable
+package com.github.raziu75.tricount.presentation.transaction.add.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.github.raziu75.tricount.R
 import com.github.raziu75.tricount.domain.model.Transaction
 import com.github.raziu75.tricount.presentation.common.compose.VerticalSpacer
-import com.github.raziu75.tricount.presentation.participant.list.state.UiState
+import com.github.raziu75.tricount.presentation.transaction.add.state.UiState
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,16 +35,14 @@ fun AddTransactionBottomSheetPreview() {
         val sheetState = rememberModalBottomSheetState()
 
         AddTransactionBottomSheet(
+            onAmountInputChange = {},
+            onTitleInputChange = {},
+            onPayerInputChange = {},
             sheetState = sheetState,
             onDismiss = {},
             checked = false,
             onCheckedChange = { },
-            state = UiState(
-                participantList = listOf(
-                    Transaction.Participant(0, "Dylan"),
-                    Transaction.Participant(1, "Melwin")
-                )
-            )
+            state = UiState()
         )
     }
 }
@@ -58,6 +56,9 @@ fun AddTransactionBottomSheet(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(),
+    onAmountInputChange: (String) -> Unit,
+    onTitleInputChange: (String) -> Unit,
+    onPayerInputChange: (String) -> Unit
 ) {
     ModalBottomSheet(
         modifier = modifier,
@@ -73,7 +74,7 @@ fun AddTransactionBottomSheet(
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = "",
-                    onValueChange = { },
+                    onValueChange = onTitleInputChange,
                     label = { Text(stringResource(id = R.string.add_transaction_input_label_title)) }
                 )
 
@@ -82,7 +83,7 @@ fun AddTransactionBottomSheet(
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = "",
-                    onValueChange = { },
+                    onValueChange = onAmountInputChange,
                     label = { Text(stringResource(id = R.string.add_transaction_input_label_amount)) }
                 )
 
@@ -92,7 +93,7 @@ fun AddTransactionBottomSheet(
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = "",
-                    onValueChange = { },
+                    onValueChange = onPayerInputChange,
                     label = { Text(stringResource(id = R.string.add_transaction_input_label_paid_by)) }
                 )
 
