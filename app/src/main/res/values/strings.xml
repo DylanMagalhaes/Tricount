@@ -15,9 +15,12 @@
     <string name="add_participant_input_label_name">Nom</string>
     <string name="add_participant_action_add">Ajouter</string>
 
+    <string name="add_transaction_input_label_title">Titre</string>
+    <string name="add_transaction_input_label_paid_by">Payé par</string>
+    <string name="add_transaction_input_label_amount">Montant</string>
+    <string name="add_transaction_participants_title">Participants</string>
+
     <string name="transaction_list_item_paid_by_label">Payé par %s</string>
     <string name="transaction_list_item_price_label">%s €</string>
-
-    <string name="add_transaction_title">Ajouter une dépense</string>
 
 </resources>

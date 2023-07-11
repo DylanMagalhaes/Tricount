@@ -3,10 +3,10 @@ package com.github.raziu75.tricount.presentation.participant.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
-import com.github.raziu75.tricount.presentation.participant.list.state.UiState
 import com.github.raziu75.tricount.domain.usecases.AddParticipantUseCase
 import com.github.raziu75.tricount.domain.usecases.DeleteParticipantUseCase
 import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
+import com.github.raziu75.tricount.presentation.participant.list.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-@HiltViewModel class ParticipantListViewModel
+@HiltViewModel
+class ParticipantListViewModel
 @Inject constructor(
     private val addParticipantUseCase: AddParticipantUseCase,
     private val fetchParticipantListUseCase: FetchParticipantListUseCase,
