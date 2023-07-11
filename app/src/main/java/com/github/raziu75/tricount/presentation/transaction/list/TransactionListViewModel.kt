@@ -24,6 +24,7 @@ class TransactionListViewModel @Inject constructor(
         fetchTransactionList()
     }
 
+
     private fun fetchTransactionList() {
         viewModelScope.launch {
             val transactionList = getAllTransactionsUseCase()

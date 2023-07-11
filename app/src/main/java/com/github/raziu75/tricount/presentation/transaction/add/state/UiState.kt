@@ -7,4 +7,7 @@ data class UiState(
     val title: String = "",
     val amount: String = "",
     val payer: Transaction.Participant? = null,
+    val payerDropdownMenuExpanded: Boolean = false
 )
+
+

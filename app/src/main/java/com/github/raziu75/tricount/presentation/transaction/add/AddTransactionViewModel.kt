@@ -58,4 +58,10 @@ class AddTransactionViewModel
             }
         }
     }
+
+    fun onDropDownMenuClick() {
+        _uiState.update {
+            it.copy(payerDropdownMenuExpanded = true)
+        }
+    }
 }

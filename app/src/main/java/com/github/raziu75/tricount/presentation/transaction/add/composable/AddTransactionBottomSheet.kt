@@ -1,14 +1,21 @@
 package com.github.raziu75.tricount.presentation.transaction.add.composable
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
@@ -22,7 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.raziu75.tricount.R
-import com.github.raziu75.tricount.domain.model.Transaction
+import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.presentation.common.compose.VerticalSpacer
 import com.github.raziu75.tricount.presentation.transaction.add.state.UiState
 
@@ -37,12 +44,13 @@ fun AddTransactionBottomSheetPreview() {
         AddTransactionBottomSheet(
             onAmountInputChange = {},
             onTitleInputChange = {},
-            onPayerInputChange = {},
             sheetState = sheetState,
             onDismiss = {},
             checked = false,
             onCheckedChange = { },
-            state = UiState()
+            state = UiState(),
+            onSelectPayer = {},
+            onPayerDropdownMenuClick = {}
         )
     }
 }
@@ -58,7 +66,8 @@ fun AddTransactionBottomSheet(
     sheetState: SheetState = rememberModalBottomSheetState(),
     onAmountInputChange: (String) -> Unit,
     onTitleInputChange: (String) -> Unit,
-    onPayerInputChange: (String) -> Unit
+    onSelectPayer: (Participant) -> Unit,
+    onPayerDropdownMenuClick: () -> Unit
 ) {
     ModalBottomSheet(
         modifier = modifier,
@@ -89,13 +98,32 @@ fun AddTransactionBottomSheet(
 
                 VerticalSpacer(space = 8.dp)
 
+                Box {
+                    OutlinedTextField(
+                        value = state.payer?.name ?: "",
+                        onValueChange = {},
+                        label = { Text(stringResource(id = R.string.add_transaction_input_label_paid_by)) },
+                        trailingIcon = {
+                            Icon(
+                                modifier = modifier.clickable { onPayerDropdownMenuClick() },
+                                imageVector = Icons.Default.ArrowDropDown,
+                                contentDescription = null,
+                            )
+                        }
+                    )
 
-                OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = "",
-                    onValueChange = onPayerInputChange,
-                    label = { Text(stringResource(id = R.string.add_transaction_input_label_paid_by)) }
-                )
+                    DropdownMenu(
+                        expanded = state.payerDropdownMenuExpanded,
+                        onDismissRequest = { TODO() }
+                    ) {
+                        state.participantList.forEach { participant ->
+                            DropdownMenuItem(
+                                onClick = { onSelectPayer(participant) },
+                                text = { Text(text = participant.name) }
+                            )
+                        }
+                    }
+                }
 
                 VerticalSpacer(space = 24.dp)
 
@@ -121,7 +149,7 @@ fun AddTransactionBottomSheet(
 
 @Composable
 private fun ParticipantItem(
-    item: Transaction.Participant,
+    item: Participant,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
