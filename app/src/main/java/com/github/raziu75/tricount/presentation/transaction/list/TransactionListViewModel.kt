@@ -40,4 +40,10 @@ class TransactionListViewModel @Inject constructor(
             it.copy(addTransactionBottomSheetVisible = true)
         }
     }
+
+    fun onDismissSheet() {
+        _uiState.update {
+            it.copy(addTransactionBottomSheetVisible = false)
+        }
+    }
 }
