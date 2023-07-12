@@ -1,5 +1,6 @@
 package com.github.raziu75.tricount.presentation.transaction.add
 
+import androidx.lifecycle.viewModelScope
 import com.github.raziu75.tricount.common.TestDispatcherRule
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
@@ -124,7 +125,6 @@ class AddTransactionViewModelTest {
         val participants = listOf(participantA, participantB)
         coEvery { fetchParticipantListUseCase() } returns participants
 
-        coEvery { fetchParticipantListUseCase() } returns participants
 
         val viewModel = viewModel()
 
@@ -149,5 +149,24 @@ class AddTransactionViewModelTest {
 
         //THEN
         Assert.assertFalse(viewModel.uiState.value.payerSelectionState.dropDownExpanded)
+    }
+
+    @Test
+    fun`on selected payer, should mark payer as concerned participant`() {
+        //GIVEN
+        val participantA = Participant(0, "Melwin")
+        val participantB = Participant(1, "Jules")
+
+        val participants = listOf(participantA, participantB)
+        coEvery { fetchParticipantListUseCase() } returns participants
+
+        val viewModel = viewModel()
+
+        //WHEN
+        viewModel.onSelectPayer(participantA)
+
+        //THEN
+        Assert.assertTrue(viewModel.uiState.value.payerSelectionState.concernedParticipants[participantA]!!)
+
     }
 }

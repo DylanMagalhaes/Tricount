@@ -43,10 +43,16 @@ class AddTransactionViewModel
 
     fun onSelectPayer(payer: Participant) {
         _uiState.update {
+            val concernedParticipantsMap = it.payerSelectionState.concernedParticipants
+            val updatedMap = concernedParticipantsMap.toMutableMap()
+                .apply {
+                    replace(payer, true)
+                }
             it.copy(
                 payerSelectionState = it.payerSelectionState.copy(
                     selectedPayer = payer,
                     dropDownExpanded = false,
+                    concernedParticipants = updatedMap
                 )
             )
         }
