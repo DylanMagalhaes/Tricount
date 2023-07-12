@@ -135,4 +135,19 @@ class AddTransactionViewModelTest {
         val map = viewModel.uiState.value.payerSelectionState.concernedParticipants
         Assert.assertTrue(map[participantA]!!)
     }
+
+    @Test
+    fun `on selected payer, should dismiss dropDown menu`() {
+        //GIVEN
+        val viewModel = viewModel()
+        val participantA = Participant(0, "Melwin")
+
+        viewModel.onDropDownMenuClick()
+
+        //WHEN
+        viewModel.onSelectPayer(participantA)
+
+        //THEN
+        Assert.assertFalse(viewModel.uiState.value.payerSelectionState.dropDownExpanded)
+    }
 }

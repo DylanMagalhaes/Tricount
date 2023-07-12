@@ -41,11 +41,12 @@ class AddTransactionViewModel
         }
     }
 
-    fun onSelectPayer(value: Participant) {
+    fun onSelectPayer(payer: Participant) {
         _uiState.update {
             it.copy(
                 payerSelectionState = it.payerSelectionState.copy(
-                    selectedPayer = value
+                    selectedPayer = payer,
+                    dropDownExpanded = false,
                 )
             )
         }
