@@ -81,7 +81,7 @@ fun AddTransactionBottomSheet(
             item {
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = "",
+                    value = state.title,
                     onValueChange = onTitleInputChange,
                     label = { Text(stringResource(id = R.string.add_transaction_input_label_title)) }
                 )
@@ -90,7 +90,7 @@ fun AddTransactionBottomSheet(
 
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    value = "",
+                    value = state.amount,
                     onValueChange = onAmountInputChange,
                     label = { Text(stringResource(id = R.string.add_transaction_input_label_amount)) }
                 )
