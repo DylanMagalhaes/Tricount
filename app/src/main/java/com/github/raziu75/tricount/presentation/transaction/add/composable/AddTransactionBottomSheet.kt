@@ -1,6 +1,7 @@
 package com.github.raziu75.tricount.presentation.transaction.add.composable
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,6 +23,8 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -82,6 +85,7 @@ fun AddTransactionBottomSheet(
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = state.title,
+                    singleLine = true,
                     onValueChange = onTitleInputChange,
                     label = { Text(stringResource(id = R.string.add_transaction_input_label_title)) }
                 )
@@ -91,6 +95,7 @@ fun AddTransactionBottomSheet(
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = state.amount,
+                    singleLine = true,
                     onValueChange = onAmountInputChange,
                     label = { Text(stringResource(id = R.string.add_transaction_input_label_amount)) }
                 )
@@ -100,11 +105,22 @@ fun AddTransactionBottomSheet(
                 Box {
                     OutlinedTextField(
                         value = state.payerSelectionState.selectedPayer?.name ?: "",
+                        interactionSource = remember { MutableInteractionSource() }
+                            .also { interactionSource ->
+                                LaunchedEffect(interactionSource) {
+                                    interactionSource.interactions.collect {
+                                        if (it is PressInteraction.Release) {
+                                            onPayerSelectionDropdownClick()
+                                        }
+                                    }
+                                }
+                            },
                         onValueChange = {},
+                        readOnly = true,
+                        singleLine = true,
                         label = { Text(stringResource(id = R.string.add_transaction_input_label_paid_by)) },
                         trailingIcon = {
                             Icon(
-                                modifier = modifier.clickable { onPayerSelectionDropdownClick() },
                                 imageVector = Icons.Default.ArrowDropDown,
                                 contentDescription = null,
                             )

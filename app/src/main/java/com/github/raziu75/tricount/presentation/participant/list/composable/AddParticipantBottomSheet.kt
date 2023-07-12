@@ -46,9 +46,12 @@ fun AddParticipantBottomSheet(
 
             VerticalSpacer(space = 32.dp)
 
-            OutlinedTextField(value = nameValue,
+            OutlinedTextField(
+                value = nameValue,
                 onValueChange = { onNameChange(it) },
-                label = { Text(text = stringResource(id = R.string.add_participant_input_label_name)) })
+                singleLine = true,
+                label = { Text(text = stringResource(id = R.string.add_participant_input_label_name)) }
+            )
 
             VerticalSpacer(space = 16.dp)
 
