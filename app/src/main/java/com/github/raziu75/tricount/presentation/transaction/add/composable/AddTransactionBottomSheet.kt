@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Checkbox
@@ -46,11 +45,11 @@ fun AddTransactionBottomSheetPreview() {
             onTitleInputChange = {},
             sheetState = sheetState,
             onDismiss = {},
-            checked = false,
-            onCheckedChange = { },
+            onConcernedParticipantCheckChanged = { _, _ -> },
             state = UiState(),
             onSelectPayer = {},
-            onPayerDropdownMenuClick = {}
+            onPayerSelectionDropdownClick = {},
+            onDismissPayerSelectionDropdownMenu = {},
         )
     }
 }
@@ -59,15 +58,15 @@ fun AddTransactionBottomSheetPreview() {
 @Composable
 fun AddTransactionBottomSheet(
     state: UiState,
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
+    onConcernedParticipantCheckChanged: (Participant, Boolean) -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(),
     onAmountInputChange: (String) -> Unit,
     onTitleInputChange: (String) -> Unit,
     onSelectPayer: (Participant) -> Unit,
-    onPayerDropdownMenuClick: () -> Unit
+    onPayerSelectionDropdownClick: () -> Unit,
+    onDismissPayerSelectionDropdownMenu: () -> Unit,
 ) {
     ModalBottomSheet(
         modifier = modifier,
@@ -100,12 +99,12 @@ fun AddTransactionBottomSheet(
 
                 Box {
                     OutlinedTextField(
-                        value = state.payer?.name ?: "",
+                        value = state.payerSelectionState.selectedPayer?.name ?: "",
                         onValueChange = {},
                         label = { Text(stringResource(id = R.string.add_transaction_input_label_paid_by)) },
                         trailingIcon = {
                             Icon(
-                                modifier = modifier.clickable { onPayerDropdownMenuClick() },
+                                modifier = modifier.clickable { onPayerSelectionDropdownClick() },
                                 imageVector = Icons.Default.ArrowDropDown,
                                 contentDescription = null,
                             )
@@ -113,10 +112,10 @@ fun AddTransactionBottomSheet(
                     )
 
                     DropdownMenu(
-                        expanded = state.payerDropdownMenuExpanded,
-                        onDismissRequest = { TODO() }
+                        expanded = state.payerSelectionState.dropDownExpanded,
+                        onDismissRequest = onDismissPayerSelectionDropdownMenu,
                     ) {
-                        state.participantList.forEach { participant ->
+                        state.payerSelectionState.availablePayerList.forEach { participant ->
                             DropdownMenuItem(
                                 onClick = { onSelectPayer(participant) },
                                 text = { Text(text = participant.name) }
@@ -135,13 +134,20 @@ fun AddTransactionBottomSheet(
                 VerticalSpacer(space = 8.dp)
             }
 
-            items(state.participantList) { item ->
-                ParticipantItem(
-                    modifier = Modifier.fillMaxSize(),
-                    item = item,
-                    checked = checked,
-                    onCheckedChange = onCheckedChange,
-                )
+            state.payerSelectionState.concernedParticipants.forEach { (participant, concerned) ->
+                item {
+                    ParticipantItem(
+                        modifier = Modifier.fillMaxSize(),
+                        item = participant,
+                        checked = concerned,
+                        onCheckedChange = {
+                            onConcernedParticipantCheckChanged(
+                                participant,
+                                concerned
+                            )
+                        },
+                    )
+                }
             }
         }
     }

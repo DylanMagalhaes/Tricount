@@ -34,4 +34,10 @@ class TransactionListViewModel @Inject constructor(
             }
         }
     }
+
+    fun onAddTransactionFabClick() {
+        _uiState.update {
+            it.copy(addTransactionBottomSheetVisible = true)
+        }
+    }
 }

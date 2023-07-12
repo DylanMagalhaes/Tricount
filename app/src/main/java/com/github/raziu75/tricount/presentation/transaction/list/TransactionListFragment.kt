@@ -13,12 +13,14 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.github.raziu75.tricount.presentation.transaction.add.AddTransactionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TransactionListFragment : Fragment() {
 
-    private val viewModel: TransactionListViewModel by viewModels()
+    private val transactionListviewModel: TransactionListViewModel by viewModels()
+    private val addTransactionViewModel: AddTransactionViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,12 +35,22 @@ class TransactionListFragment : Fragment() {
             )
             setContent {
                 MaterialTheme {
-                    val uiState by viewModel.uiState.collectAsState()
+                    val uiState by transactionListviewModel.uiState.collectAsState()
+                    val addTransactionUiState by addTransactionViewModel.uiState.collectAsState()
 
                     TransactionListScreen(
                         modifier = Modifier.fillMaxSize(),
-                        state = uiState,
-                        )
+                        uiState = uiState,
+                        addTransactionUiState = addTransactionUiState,
+                        onAddTransactionFabClick = { transactionListviewModel.onAddTransactionFabClick() },
+                        onAmountInputChange = { addTransactionViewModel.onAmountInputChange(it) },
+                        onTitleInputChange = { addTransactionViewModel.onTitleInputChange(it) },
+                        onSelectPayer = { addTransactionViewModel.onSelectPayer(it) },
+                        onConcernedParticipantCheckChanged = { _, _ -> TODO() },
+                        onSheetDismiss = { TODO() },
+                        onPayerSelectionDropdownClick = { addTransactionViewModel.onDropDownMenuClick() },
+                        onDismissPayerSelectionDropdownMenu = {addTransactionViewModel.onDismissPayerSelectionDropdownMenu()},
+                    )
                 }
             }
         }

@@ -44,7 +44,29 @@ class AddTransactionViewModel
     fun onSelectPayer(value: Transaction.Participant) {
         _uiState.update {
             it.copy(
-                payer = value
+                payerSelectionState = it.payerSelectionState.copy(
+                    selectedPayer = value
+                )
+            )
+        }
+    }
+
+    fun onDismissPayerSelectionDropdownMenu() {
+        _uiState.update {
+            it.copy(
+                payerSelectionState = it.payerSelectionState.copy(
+                    dropDownExpanded = false
+                )
+            )
+        }
+    }
+
+    fun onDropDownMenuClick() {
+        _uiState.update {
+            it.copy(
+                payerSelectionState = it.payerSelectionState.copy(
+                    dropDownExpanded = true
+                )
             )
         }
     }
@@ -54,14 +76,12 @@ class AddTransactionViewModel
             val participantList = fetchParticipantListUseCase()
 
             _uiState.update {
-                it.copy(participantList = participantList)
+                it.copy(
+                    payerSelectionState = it.payerSelectionState.copy(
+                        availablePayerList = participantList
+                    )
+                )
             }
-        }
-    }
-
-    fun onDropDownMenuClick() {
-        _uiState.update {
-            it.copy(payerDropdownMenuExpanded = true)
         }
     }
 }

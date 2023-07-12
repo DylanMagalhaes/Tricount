@@ -51,19 +51,46 @@ class AddTransactionViewModelTest {
         viewModel.onSelectPayer(participants)
 
         //THEN
-        Assert.assertEquals(participants, viewModel.uiState.value.payer)
+        Assert.assertEquals(participants, viewModel.uiState.value.payerSelectionState.selectedPayer)
     }
 
     @Test
     fun `on init, should show show participant list in dropDown menu`() {
         //GIVEN
-        val participants = listOf(Transaction.Participant(0,"Melwin"))
+        val participants = listOf(Transaction.Participant(0, "Melwin"))
         coEvery { fetchParticipantListUseCase() } returns participants
 
         //WHEN
         val viewModel = viewModel()
 
         //THEN
-        Assert.assertEquals(participants, viewModel.uiState.value.participantList)
+        Assert.assertEquals(
+            participants,
+            viewModel.uiState.value.payerSelectionState.availablePayerList
+        )
+    }
+
+    @Test
+    fun `on dismiss payer selection dropDown menu, should hide dropDown menu`() {
+        //GIVEN
+        val viewModel = viewModel()
+
+        //WHEN
+        viewModel.onDismissPayerSelectionDropdownMenu()
+
+        //THEN
+        Assert.assertFalse(viewModel.uiState.value.payerSelectionState.dropDownExpanded)
+    }
+
+    @Test
+    fun `on dropDown menu click, should show dropDown menu`() {
+        //GIVEN
+        val viewModel = viewModel()
+
+        //WHEN
+        viewModel.onDropDownMenuClick()
+
+        //THEN
+        Assert.assertTrue(viewModel.uiState.value.payerSelectionState.dropDownExpanded)
     }
 }
