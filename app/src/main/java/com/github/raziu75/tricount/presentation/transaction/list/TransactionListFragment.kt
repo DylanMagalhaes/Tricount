@@ -46,7 +46,11 @@ class TransactionListFragment : Fragment() {
                         onAmountInputChange = { addTransactionViewModel.onAmountInputChange(it) },
                         onTitleInputChange = { addTransactionViewModel.onTitleInputChange(it) },
                         onSelectPayer = { addTransactionViewModel.onSelectPayer(it) },
-                        onConcernedParticipantCheckChanged = { _, _ -> TODO() },
+                        onConcernedParticipantCheckChanged = { participant, _ ->
+                            addTransactionViewModel.onConcernedParticipantCheckChanged(
+                                participant
+                            )
+                        },
                         onSheetDismiss = { transactionListviewModel.onDismissSheet() },
                         onPayerSelectionDropdownClick = { addTransactionViewModel.onDropDownMenuClick() },
                         onDismissPayerSelectionDropdownMenu = { addTransactionViewModel.onDismissPayerSelectionDropdownMenu() },

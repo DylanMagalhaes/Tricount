@@ -2,7 +2,7 @@ package com.github.raziu75.tricount.presentation.transaction.add
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.raziu75.tricount.domain.model.Transaction
+import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
 import com.github.raziu75.tricount.presentation.transaction.add.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,7 +41,7 @@ class AddTransactionViewModel
         }
     }
 
-    fun onSelectPayer(value: Transaction.Participant) {
+    fun onSelectPayer(value: Participant) {
         _uiState.update {
             it.copy(
                 payerSelectionState = it.payerSelectionState.copy(
@@ -66,6 +66,23 @@ class AddTransactionViewModel
             it.copy(
                 payerSelectionState = it.payerSelectionState.copy(
                     dropDownExpanded = true
+                )
+            )
+        }
+    }
+
+    fun onConcernedParticipantCheckChanged(participant: Participant) {
+        _uiState.update {
+            val concernedParticipantsMap = it.payerSelectionState.concernedParticipants
+
+            val updatedMap = concernedParticipantsMap.toMutableMap()
+                .apply {
+                    replace(participant, !requireNotNull(this[participant]))
+                }
+
+            it.copy(
+                payerSelectionState = it.payerSelectionState.copy(
+                    concernedParticipants = updatedMap
                 )
             )
         }
