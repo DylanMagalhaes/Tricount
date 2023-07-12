@@ -95,7 +95,8 @@ class AddTransactionViewModel
             _uiState.update {
                 it.copy(
                     payerSelectionState = it.payerSelectionState.copy(
-                        availablePayerList = participantList
+                        availablePayerList = participantList,
+                        concernedParticipants = participantList.associateWith { false }
                     )
                 )
             }

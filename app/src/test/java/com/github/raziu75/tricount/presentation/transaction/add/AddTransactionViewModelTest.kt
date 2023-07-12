@@ -1,7 +1,7 @@
 package com.github.raziu75.tricount.presentation.transaction.add
 
 import com.github.raziu75.tricount.common.TestDispatcherRule
-import com.github.raziu75.tricount.domain.model.Transaction
+import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -45,7 +45,7 @@ class AddTransactionViewModelTest {
     @Test
     fun `on payer selected, should update payer value`() {
         //GIVEN
-        val participants = Transaction.Participant(0, "Sony")
+        val participants = Participant(0, "Sony")
         val viewModel = viewModel()
         //WHEN
         viewModel.onSelectPayer(participants)
@@ -57,7 +57,7 @@ class AddTransactionViewModelTest {
     @Test
     fun `on init, should show show participant list in dropDown menu`() {
         //GIVEN
-        val participants = listOf(Transaction.Participant(0, "Melwin"))
+        val participants = listOf(Participant(0, "Melwin"))
         coEvery { fetchParticipantListUseCase() } returns participants
 
         //WHEN
@@ -65,8 +65,29 @@ class AddTransactionViewModelTest {
 
         //THEN
         Assert.assertEquals(
-            participants,
-            viewModel.uiState.value.payerSelectionState.availablePayerList
+            participants, viewModel.uiState.value.payerSelectionState.availablePayerList
+        )
+    }
+
+    @Test
+    fun `on init, should show participants`() {
+        // GIVEN
+        val participantA = Participant(0, "Melwin")
+        val participantB = Participant(1, "Jules")
+
+        val participants = listOf(participantA, participantB)
+        coEvery { fetchParticipantListUseCase() } returns participants
+
+        // WHEN
+        val viewModel = viewModel()
+
+        // THEN
+        Assert.assertEquals(
+            mapOf(
+                participantA to false,
+                participantB to false,
+            ),
+            viewModel.uiState.value.payerSelectionState.concernedParticipants
         )
     }
 
@@ -92,5 +113,26 @@ class AddTransactionViewModelTest {
 
         //THEN
         Assert.assertTrue(viewModel.uiState.value.payerSelectionState.dropDownExpanded)
+    }
+
+    @Test
+    fun `on concerned participant check changed, should change value`() {
+        //GIVEN
+        val participantA = Participant(0, "Melwin")
+        val participantB = Participant(1, "Jules")
+
+        val participants = listOf(participantA, participantB)
+        coEvery { fetchParticipantListUseCase() } returns participants
+
+        coEvery { fetchParticipantListUseCase() } returns participants
+
+        val viewModel = viewModel()
+
+        //WHEN
+        viewModel.onConcernedParticipantCheckChanged(participantA)
+
+        //THEN
+        val map = viewModel.uiState.value.payerSelectionState.concernedParticipants
+        Assert.assertTrue(map[participantA]!!)
     }
 }
