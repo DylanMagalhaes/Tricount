@@ -4,10 +4,8 @@ import com.github.raziu75.tricount.data.TricountRepository
 import com.github.raziu75.tricount.domain.model.Transaction
 import com.github.raziu75.tricount.domain.usecases.GetAllTransactionsUseCase
 import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -20,14 +18,14 @@ class GetAllTransactionsUseCaseTest {
             id = 0,
             title = "course",
             amountInCents = 500,
-            participants = emptyList(),
+            concernedParticipants = emptyList(),
             payer = participant
         )
         val transaction2 = Transaction(
             id = 1,
             title = "course",
             amountInCents = 500,
-            participants = emptyList(),
+            concernedParticipants = emptyList(),
             payer = participant
         )
 

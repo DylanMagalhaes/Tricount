@@ -25,7 +25,7 @@ import com.github.raziu75.tricount.presentation.common.compose.VerticalSpacer
                 amountInCents = 5465,
                 title = "La Zoumalikatou t'as mal au crâne",
                 payer = Transaction.Participant(0, "Melwin"),
-                participants = listOf(),
+                concernedParticipants = listOf(),
             ),
         )
     }

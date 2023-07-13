@@ -19,7 +19,7 @@ class CreateTransactionUseCaseTest{
             id = 0,
             title = "course",
             amountInCents = 500,
-            participants = emptyList(),
+            concernedParticipants = emptyList(),
             payer = participant)
 
         // WHEN

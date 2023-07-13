@@ -42,18 +42,19 @@ class TransactionListFragment : Fragment() {
                         modifier = Modifier.fillMaxSize(),
                         uiState = uiState,
                         addTransactionUiState = addTransactionUiState,
-                        onAddTransactionFabClick = { transactionListviewModel.onAddTransactionFabClick() },
-                        onAmountInputChange = { addTransactionViewModel.onAmountInputChange(it) },
-                        onTitleInputChange = { addTransactionViewModel.onTitleInputChange(it) },
-                        onSelectPayer = { addTransactionViewModel.onSelectPayer(it) },
+                        onAddTransactionFabClick = transactionListviewModel::onAddTransactionFabClick,
+                        onAmountInputChange = addTransactionViewModel::onAmountInputChange,
+                        onTitleInputChange = addTransactionViewModel::onTitleInputChange,
+                        onSelectPayer = addTransactionViewModel::onSelectPayer,
                         onConcernedParticipantCheckChanged = { participant, _ ->
                             addTransactionViewModel.onConcernedParticipantCheckChanged(
                                 participant
                             )
                         },
-                        onSheetDismiss = { transactionListviewModel.onDismissSheet() },
-                        onPayerSelectionDropdownClick = { addTransactionViewModel.onDropDownMenuClick() },
-                        onDismissPayerSelectionDropdownMenu = { addTransactionViewModel.onDismissPayerSelectionDropdownMenu() },
+                        onSheetDismiss = transactionListviewModel::onDismissSheet,
+                        onPayerSelectionDropdownClick = addTransactionViewModel::onDropDownMenuClick,
+                        onDismissPayerSelectionDropdownMenu = addTransactionViewModel::onDismissPayerSelectionDropdownMenu,
+                        onSubmitClick = addTransactionViewModel::onSubmitClick,
                     )
                 }
             }

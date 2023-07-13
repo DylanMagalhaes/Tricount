@@ -23,7 +23,7 @@ class TricountRepository @Inject constructor(private val dao: TricountDao) {
 
 
         val transactionParticipantsCrossRef =
-            transaction.participants.map { participant ->
+            transaction.concernedParticipants.map { participant ->
                 TransactionParticipantCrossRef(
                     transactionId = transactionId,
                     participantId = participant.id,

@@ -19,7 +19,7 @@ class GetTransactionUseCaseTest{
             id = 0,
             title = "course",
             amountInCents = 500,
-            participants = emptyList(),
+            concernedParticipants = emptyList(),
             payer = participant)
         val useCase = GetTransactionUseCase(repository)
         coEvery { repository.getTransaction(transaction.id) } returns transaction

@@ -5,7 +5,7 @@ data class Transaction(
     val amountInCents: Int,
     val title: String,
     val payer: Participant,
-    val participants: List<Participant>
+    val concernedParticipants: List<Participant>
 ) {
     data class Participant(
         val id: Long,

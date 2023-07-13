@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -53,6 +54,7 @@ fun AddTransactionBottomSheetPreview() {
             onSelectPayer = {},
             onPayerSelectionDropdownClick = {},
             onDismissPayerSelectionDropdownMenu = {},
+            onSubmitClick = {}
         )
     }
 }
@@ -64,12 +66,13 @@ fun AddTransactionBottomSheet(
     onConcernedParticipantCheckChanged: (Participant, Boolean) -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
-    sheetState: SheetState = rememberModalBottomSheetState(),
+    sheetState: SheetState,
     onAmountInputChange: (String) -> Unit,
     onTitleInputChange: (String) -> Unit,
     onSelectPayer: (Participant) -> Unit,
     onPayerSelectionDropdownClick: () -> Unit,
     onDismissPayerSelectionDropdownMenu: () -> Unit,
+    onSubmitClick: () -> Unit
 ) {
     ModalBottomSheet(
         modifier = modifier,
@@ -104,6 +107,7 @@ fun AddTransactionBottomSheet(
 
                 Box {
                     OutlinedTextField(
+                        modifier = Modifier.fillMaxWidth(),
                         value = state.payerSelectionState.selectedPayer?.name ?: "",
                         interactionSource = remember { MutableInteractionSource() }
                             .also { interactionSource ->
@@ -164,6 +168,19 @@ fun AddTransactionBottomSheet(
                         },
                     )
                 }
+            }
+
+            item {
+                VerticalSpacer(space = 24.dp)
+
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onSubmitClick,
+                ) {
+                    Text(text = stringResource(id = R.string.add_participant_action_add))
+                }
+
+                VerticalSpacer(space = 24.dp)
             }
         }
     }

@@ -39,7 +39,7 @@ class TransactionMapperTest {
                 amountInCents = transactionEntity.amountInCents,
                 title = transactionEntity.title,
                 payer = payer,
-                participants = participants,
+                concernedParticipants = participants,
             ),
             actual,
         )

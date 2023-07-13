@@ -1,10 +1,12 @@
 package com.github.raziu75.tricount.presentation.transaction.add
 
-import androidx.lifecycle.viewModelScope
 import com.github.raziu75.tricount.common.TestDispatcherRule
+import com.github.raziu75.tricount.domain.model.Transaction
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
+import com.github.raziu75.tricount.domain.usecases.CreateTransactionUseCase
 import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import org.junit.Assert
 import org.junit.Rule
@@ -14,9 +16,10 @@ class AddTransactionViewModelTest {
     @get: Rule val dispatcherRule = TestDispatcherRule()
 
     private val fetchParticipantListUseCase: FetchParticipantListUseCase = mockk(relaxed = true)
-
+    private val createTransactionUseCase: CreateTransactionUseCase = mockk()
     private fun viewModel() = AddTransactionViewModel(
-        fetchParticipantListUseCase = fetchParticipantListUseCase
+        fetchParticipantListUseCase = fetchParticipantListUseCase,
+        createTransactionUseCase = createTransactionUseCase,
     )
 
     @Test
@@ -152,7 +155,7 @@ class AddTransactionViewModelTest {
     }
 
     @Test
-    fun`on selected payer, should mark payer as concerned participant`() {
+    fun `on selected payer, should mark payer as concerned participant`() {
         //GIVEN
         val participantA = Participant(0, "Melwin")
         val participantB = Participant(1, "Jules")
@@ -168,5 +171,41 @@ class AddTransactionViewModelTest {
         //THEN
         Assert.assertTrue(viewModel.uiState.value.payerSelectionState.concernedParticipants[participantA]!!)
 
+    }
+
+    @Test
+    fun `on submit click, should create transaction`() {
+        //GIVEN
+        val participantA = Participant(0, "Melwin")
+        val participantB = Participant(1, "Dylan")
+        val participantC = Participant(2, "Jules")
+
+        val participants = listOf(participantA, participantB, participantC)
+
+        coEvery { fetchParticipantListUseCase() } returns participants
+
+        val transaction = Transaction(
+            id = 0,
+            amountInCents = 100,
+            concernedParticipants = listOf(participantA, participantC),
+            payer = participantA,
+            title = "banana"
+        )
+
+        coEvery { createTransactionUseCase(transaction) }
+
+        val viewModel = viewModel()
+
+        viewModel.onTitleInputChange("banana")
+        viewModel.onAmountInputChange("100")
+        viewModel.onSelectPayer(participantA)
+        viewModel.onConcernedParticipantCheckChanged(participantA)
+        viewModel.onConcernedParticipantCheckChanged(participantC)
+
+        //WHEN
+        viewModel.onSubmitClick()
+
+        //THEN
+        coVerify { createTransactionUseCase(transaction) }
     }
 }

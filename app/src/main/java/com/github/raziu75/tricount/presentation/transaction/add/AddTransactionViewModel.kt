@@ -2,7 +2,9 @@ package com.github.raziu75.tricount.presentation.transaction.add
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.raziu75.tricount.domain.model.Transaction
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
+import com.github.raziu75.tricount.domain.usecases.CreateTransactionUseCase
 import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
 import com.github.raziu75.tricount.presentation.transaction.add.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +17,9 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class AddTransactionViewModel
 @Inject constructor(
-    private val fetchParticipantListUseCase: FetchParticipantListUseCase
+    private val fetchParticipantListUseCase: FetchParticipantListUseCase,
+    private val createTransactionUseCase: CreateTransactionUseCase,
+
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -93,6 +97,23 @@ class AddTransactionViewModel
                 )
             )
         }
+    }
+
+    fun onSubmitClick() {
+        viewModelScope.launch {
+            val participantsChecked = uiState.value.payerSelectionState.concernedParticipants.filterValues { it }
+            val concernedParticipant = participantsChecked.keys.toList()
+            createTransactionUseCase(
+                Transaction(
+                    amountInCents = uiState.value.amount.toInt(),
+                    title = uiState.value.title,
+                    payer = uiState.value.payerSelectionState.selectedPayer!!,
+                    concernedParticipants = concernedParticipant,
+                )
+            )
+        }
+
+
     }
 
     private fun fetchParticipantList() {

@@ -17,6 +17,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,6 +47,7 @@ private fun TransactionListScreenPreview() {
             onConcernedParticipantCheckChanged = { _, _ -> },
             onPayerSelectionDropdownClick = {},
             onDismissPayerSelectionDropdownMenu = {},
+            onSubmitClick = {},
         )
     }
 }
@@ -63,8 +65,11 @@ fun TransactionListScreen(
     onSheetDismiss: () -> Unit,
     onPayerSelectionDropdownClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onDismissPayerSelectionDropdownMenu: () -> Unit
+    onDismissPayerSelectionDropdownMenu: () -> Unit,
+    onSubmitClick: () -> Unit,
 ) {
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
     Box(modifier = modifier) {
         Column(modifier = Modifier.padding(24.dp)) {
             Text(
@@ -113,7 +118,9 @@ fun TransactionListScreen(
                 onTitleInputChange = onTitleInputChange,
                 onSelectPayer = onSelectPayer,
                 onPayerSelectionDropdownClick = onPayerSelectionDropdownClick,
-                onDismissPayerSelectionDropdownMenu = onDismissPayerSelectionDropdownMenu
+                onDismissPayerSelectionDropdownMenu = onDismissPayerSelectionDropdownMenu,
+                sheetState = sheetState,
+                onSubmitClick = onSubmitClick,
             )
         }
     }

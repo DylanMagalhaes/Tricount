@@ -16,5 +16,5 @@ fun TransactionWithParticipants.toDomain(): Transaction =
         amountInCents = transaction.amountInCents,
         title = transaction.title,
         payer = payer.toDomain(),
-        participants = participants.map(ParticipantEntity::toDomain)
+        concernedParticipants = participants.map(ParticipantEntity::toDomain)
     )
