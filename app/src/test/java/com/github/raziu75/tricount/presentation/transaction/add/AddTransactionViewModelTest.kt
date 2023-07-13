@@ -5,9 +5,12 @@ import com.github.raziu75.tricount.domain.model.Transaction
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
 import com.github.raziu75.tricount.domain.usecases.CreateTransactionUseCase
 import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
+import com.github.raziu75.tricount.presentation.transaction.add.AddTransactionViewModel.NavigationEvent
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -22,8 +25,7 @@ class AddTransactionViewModelTest {
         createTransactionUseCase = createTransactionUseCase,
     )
 
-    @Test
-    fun `on amount input change, should update amount value`() {
+    @Test fun `on amount input change, should update amount value`() {
         //GIVEN
         val value = "10"
         val viewModel = viewModel()
@@ -34,8 +36,7 @@ class AddTransactionViewModelTest {
         Assert.assertEquals(value, viewModel.uiState.value.amount)
     }
 
-    @Test
-    fun `on title input change, should update amount value`() {
+    @Test fun `on title input change, should update amount value`() {
         //GIVEN
         val value = "gas"
         val viewModel = viewModel()
@@ -46,8 +47,7 @@ class AddTransactionViewModelTest {
         Assert.assertEquals(value, viewModel.uiState.value.title)
     }
 
-    @Test
-    fun `on payer selected, should update payer value`() {
+    @Test fun `on payer selected, should update payer value`() {
         //GIVEN
         val participants = Participant(0, "Sony")
         val viewModel = viewModel()
@@ -58,8 +58,7 @@ class AddTransactionViewModelTest {
         Assert.assertEquals(participants, viewModel.uiState.value.payerSelectionState.selectedPayer)
     }
 
-    @Test
-    fun `on init, should show show participant list in dropDown menu`() {
+    @Test fun `on init, should show show participant list in dropDown menu`() {
         //GIVEN
         val participants = listOf(Participant(0, "Melwin"))
         coEvery { fetchParticipantListUseCase() } returns participants
@@ -73,8 +72,7 @@ class AddTransactionViewModelTest {
         )
     }
 
-    @Test
-    fun `on init, should show participants`() {
+    @Test fun `on init, should show participants`() {
         // GIVEN
         val participantA = Participant(0, "Melwin")
         val participantB = Participant(1, "Jules")
@@ -90,13 +88,11 @@ class AddTransactionViewModelTest {
             mapOf(
                 participantA to false,
                 participantB to false,
-            ),
-            viewModel.uiState.value.payerSelectionState.concernedParticipants
+            ), viewModel.uiState.value.payerSelectionState.concernedParticipants
         )
     }
 
-    @Test
-    fun `on dismiss payer selection dropDown menu, should hide dropDown menu`() {
+    @Test fun `on dismiss payer selection dropDown menu, should hide dropDown menu`() {
         //GIVEN
         val viewModel = viewModel()
 
@@ -107,8 +103,7 @@ class AddTransactionViewModelTest {
         Assert.assertFalse(viewModel.uiState.value.payerSelectionState.dropDownExpanded)
     }
 
-    @Test
-    fun `on dropDown menu click, should show dropDown menu`() {
+    @Test fun `on dropDown menu click, should show dropDown menu`() {
         //GIVEN
         val viewModel = viewModel()
 
@@ -119,8 +114,7 @@ class AddTransactionViewModelTest {
         Assert.assertTrue(viewModel.uiState.value.payerSelectionState.dropDownExpanded)
     }
 
-    @Test
-    fun `on concerned participant check changed, should change value`() {
+    @Test fun `on concerned participant check changed, should change value`() {
         //GIVEN
         val participantA = Participant(0, "Melwin")
         val participantB = Participant(1, "Jules")
@@ -139,8 +133,7 @@ class AddTransactionViewModelTest {
         Assert.assertTrue(map[participantA]!!)
     }
 
-    @Test
-    fun `on selected payer, should dismiss dropDown menu`() {
+    @Test fun `on selected payer, should dismiss dropDown menu`() {
         //GIVEN
         val viewModel = viewModel()
         val participantA = Participant(0, "Melwin")
@@ -154,8 +147,7 @@ class AddTransactionViewModelTest {
         Assert.assertFalse(viewModel.uiState.value.payerSelectionState.dropDownExpanded)
     }
 
-    @Test
-    fun `on selected payer, should mark payer as concerned participant`() {
+    @Test fun `on selected payer, should mark payer as concerned participant`() {
         //GIVEN
         val participantA = Participant(0, "Melwin")
         val participantB = Participant(1, "Jules")
@@ -173,8 +165,7 @@ class AddTransactionViewModelTest {
 
     }
 
-    @Test
-    fun `on submit click, should create transaction`() {
+    @Test fun `on submit click, should create transaction`() {
         //GIVEN
         val participantA = Participant(0, "Melwin")
         val participantB = Participant(1, "Dylan")
@@ -206,5 +197,39 @@ class AddTransactionViewModelTest {
 
         //THEN
         coVerify { createTransactionUseCase(transaction) }
+    }
+
+    @Test fun `on submit click, should dismiss`() = runTest {
+        //GIVEN
+        val participantA = Participant(0, "Melwin")
+        val participantB = Participant(1, "Dylan")
+        val participantC = Participant(2, "Jules")
+
+        val participants = listOf(participantA, participantB, participantC)
+
+        coEvery { fetchParticipantListUseCase() } returns participants
+
+        val transaction = Transaction(
+            id = 0,
+            amountInCents = 100,
+            concernedParticipants = listOf(participantA, participantC),
+            payer = participantA,
+            title = "banana"
+        )
+
+        coEvery { createTransactionUseCase(transaction) } returns transaction
+
+        val viewModel = viewModel()
+
+        viewModel.onTitleInputChange("banana")
+        viewModel.onAmountInputChange("100")
+        viewModel.onSelectPayer(participantA)
+        viewModel.onConcernedParticipantCheckChanged(participantC)
+
+        //WHEN
+        viewModel.onSubmitClick()
+
+        //THEN
+        Assert.assertEquals(NavigationEvent.Dismiss, viewModel.navigationEvents.first())
     }
 }

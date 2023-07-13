@@ -9,8 +9,10 @@ import com.github.raziu75.tricount.domain.usecases.FetchParticipantListUseCase
 import com.github.raziu75.tricount.presentation.transaction.add.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -20,10 +22,13 @@ class AddTransactionViewModel
     private val fetchParticipantListUseCase: FetchParticipantListUseCase,
     private val createTransactionUseCase: CreateTransactionUseCase,
 
-) : ViewModel() {
+    ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
+
+    private val _navigationEvents = Channel<NavigationEvent>()
+    val navigationEvents = _navigationEvents.receiveAsFlow()
 
     init {
         fetchParticipantList()
@@ -100,20 +105,23 @@ class AddTransactionViewModel
     }
 
     fun onSubmitClick() {
+        val uiState = uiState.value
+
+        val participantsChecked = uiState.payerSelectionState.concernedParticipants.filterValues { it }
+        val concernedParticipant = participantsChecked.keys.toList()
+
         viewModelScope.launch {
-            val participantsChecked = uiState.value.payerSelectionState.concernedParticipants.filterValues { it }
-            val concernedParticipant = participantsChecked.keys.toList()
             createTransactionUseCase(
                 Transaction(
-                    amountInCents = uiState.value.amount.toInt(),
-                    title = uiState.value.title,
-                    payer = uiState.value.payerSelectionState.selectedPayer!!,
+                    amountInCents = uiState.amount.toInt(),
+                    title = uiState.title,
+                    payer = uiState.payerSelectionState.selectedPayer!!,
                     concernedParticipants = concernedParticipant,
                 )
             )
+
+            _navigationEvents.send(NavigationEvent.Dismiss)
         }
-
-
     }
 
     private fun fetchParticipantList() {
@@ -129,5 +137,9 @@ class AddTransactionViewModel
                 )
             }
         }
+    }
+
+    sealed class NavigationEvent {
+        object Dismiss : NavigationEvent()
     }
 }

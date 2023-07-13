@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.raziu75.tricount.R
 import com.github.raziu75.tricount.domain.model.Transaction.Participant
+import com.github.raziu75.tricount.presentation.common.compose.VerticalSpacer
 import com.github.raziu75.tricount.presentation.transaction.add.composable.AddTransactionBottomSheet
 import com.github.raziu75.tricount.presentation.transaction.list.composable.TransactionItem
 import com.github.raziu75.tricount.presentation.transaction.list.state.UiState
@@ -71,7 +72,9 @@ fun TransactionListScreen(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     Box(modifier = modifier) {
-        Column(modifier = Modifier.padding(24.dp)) {
+        Column {
+            VerticalSpacer(16.dp)
+
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.home_transactions_card_title),
@@ -90,8 +93,13 @@ fun TransactionListScreen(
             } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    contentPadding = PaddingValues(top = 32.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    contentPadding = PaddingValues(
+                        top = 32.dp,
+                        bottom = 24.dp,
+                        start = 16.dp,
+                        end = 16.dp
+                    ),
                 ) {
                     items(uiState.transactionList) { transaction ->
                         TransactionItem(transaction = transaction)

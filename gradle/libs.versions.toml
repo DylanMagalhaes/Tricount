@@ -11,7 +11,7 @@ fragment = "1.5.7"
 gson = "2.10.1"
 hilt = "2.46"
 junit = "4.13.2"
-kotlinxCoroutinesTest = "1.6.4"
+kotlinxCoroutines = "1.6.4"
 lifecycle = "2.6.1"
 material = "1.8.0"
 material3 = "1.1.0-rc01"
@@ -53,6 +53,7 @@ dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
 junit = { module = "junit:junit", version.ref = "junit" }
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
