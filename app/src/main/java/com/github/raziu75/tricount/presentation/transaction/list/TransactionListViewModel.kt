@@ -2,7 +2,6 @@ package com.github.raziu75.tricount.presentation.transaction.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.raziu75.tricount.domain.model.Transaction
 import com.github.raziu75.tricount.domain.usecases.GetAllTransactionsUseCase
 import com.github.raziu75.tricount.presentation.transaction.list.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +23,19 @@ class TransactionListViewModel @Inject constructor(
         fetchTransactionList()
     }
 
+    fun onAddTransactionFabClick() {
+        _uiState.update {
+            it.copy(addTransactionBottomSheetVisible = true)
+        }
+    }
+
+    fun onDismissSheet() {
+        fetchTransactionList()
+
+        _uiState.update {
+            it.copy(addTransactionBottomSheetVisible = false)
+        }
+    }
 
     private fun fetchTransactionList() {
         viewModelScope.launch {
@@ -32,18 +44,6 @@ class TransactionListViewModel @Inject constructor(
             _uiState.update {
                 it.copy(transactionList = transactionList)
             }
-        }
-    }
-
-    fun onAddTransactionFabClick() {
-        _uiState.update {
-            it.copy(addTransactionBottomSheetVisible = true)
-        }
-    }
-
-    fun onDismissSheet() {
-        _uiState.update {
-            it.copy(addTransactionBottomSheetVisible = false)
         }
     }
 }

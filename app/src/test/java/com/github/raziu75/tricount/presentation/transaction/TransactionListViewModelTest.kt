@@ -42,4 +42,19 @@ class TransactionListViewModelTest {
         //THEN
         Assert.assertFalse(viewModel.uiState.value.addTransactionBottomSheetVisible)
     }
+
+    @Test
+    fun `on dismiss sheet, should refresh transactions`() {
+        //GIVEN
+        val transactions = listOf<Transaction>()
+        coEvery { getAllTransactionsUseCase() } returns transactions
+
+        val viewModel = viewModel()
+
+        //WHEN
+        viewModel.onDismissSheet()
+
+        //THEN
+        assertEquals(transactions, viewModel.uiState.value.transactionList)
+    }
 }

@@ -192,14 +192,13 @@ class AddTransactionViewModelTest {
             title = "banana"
         )
 
-        coEvery { createTransactionUseCase(transaction) }
+        coEvery { createTransactionUseCase(transaction) } returns transaction
 
         val viewModel = viewModel()
 
         viewModel.onTitleInputChange("banana")
         viewModel.onAmountInputChange("100")
         viewModel.onSelectPayer(participantA)
-        viewModel.onConcernedParticipantCheckChanged(participantA)
         viewModel.onConcernedParticipantCheckChanged(participantC)
 
         //WHEN
